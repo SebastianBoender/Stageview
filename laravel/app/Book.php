@@ -11,6 +11,9 @@ class Book extends Model
         'title',
         'author',
         'publisher',
-        'image'
+        'image',
+        'review',
+        'location',
+        'tags'
     ];
 }
