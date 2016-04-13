@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>Creëer bedrijf</h1>
-    {!! Form::open(['url' => 'books']) !!}
+    {!! Form::open(['url'=>'apply/upload','method'=>'POST', 'files'=>true]) !!}
     <div class="form-group">
         {!! Form::label('compName', 'Bedrijfsnaam:') !!}
         {!! Form::text('compName',null,['class'=>'form-control']) !!}
@@ -21,7 +21,7 @@
     </div>
     <div class="form-group">
         {!! Form::label('Image', 'Afbeelding:') !!}
-        {!! Form::text('image',null,['class'=>'form-control']) !!}
+        {!! Form::file('image') !!}
     </div>
     <div class="form-group">
         {!! Form::label('review', 'Review:') !!}
