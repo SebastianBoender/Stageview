@@ -37,3 +37,12 @@ Route::resource('books','BookController');
 Route::group(['middleware' => ['web']], function () {
     //
 });
+
+Route::get('books/companies/detail', function() {
+	return View::make('books.company-detail-page');
+});
+
+Route::get('upload', function() {
+  return View::make('books.create');
+});
+Route::post('apply/upload', 'uploadController@upload');

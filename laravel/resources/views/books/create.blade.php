@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>Create Book</h1>
-    {!! Form::open(['url' => 'books']) !!}
+    {!! Form::open(['url' => 'apply/upload','method'=>'POST', 'files'=>true]) !!}
     <div class="form-group">
         {!! Form::label('compName', 'Bedrijfsnaam:') !!}
         {!! Form::text('compName',null,['class'=>'form-control']) !!}
@@ -22,6 +22,9 @@
     <div class="form-group">
         {!! Form::label('Image', 'Image:') !!}
         {!! Form::text('image',null,['class'=>'form-control']) !!}
+    </div>
+    <div class="form-group">
+        {!! Form::file('image') !!}
     </div>
     <div class="form-group">
         {!! Form::submit('Save', ['class' => 'btn btn-primary form-control']) !!}
