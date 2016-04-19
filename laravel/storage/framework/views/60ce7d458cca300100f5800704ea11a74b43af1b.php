@@ -1,6 +1,6 @@
 <?php $__env->startSection('content'); ?>
-    <h1>Creëer bedrijf</h1>
-    <?php echo Form::open(['url'=>'apply/upload','method'=>'POST', 'files'=>true]); ?>
+    <h1>Update bedrijf</h1>
+    <?php echo Form::model($book,['method' => 'PATCH','route'=>['books.update',$book->id]]); ?>
 
     <div class="form-group">
         <?php echo Form::label('compName', 'Bedrijfsnaam:'); ?>
@@ -29,7 +29,7 @@
     <div class="form-group">
         <?php echo Form::label('Image', 'Afbeelding:'); ?>
 
-        <?php echo Form::file('image'); ?>
+        <?php echo Form::text('image',null,['class'=>'form-control']); ?>
 
     </div>
     <div class="form-group">
@@ -51,7 +51,7 @@
 
     </div>
     <div class="form-group">
-        <?php echo Form::submit('Save', ['class' => 'btn btn-primary form-control']); ?>
+        <?php echo Form::submit('Update', ['class' => 'btn btn-primary']); ?>
 
     </div>
     <?php echo Form::close(); ?>
