@@ -1,3 +1,8 @@
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,30 +12,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Stageview | Jij zoekt een stage, wij informeren</title>
     <!-- Favicons (created with http://realfavicongenerator.net/)-->
-    <link rel="apple-touch-icon" sizes="57x57" href="img/favicons/apple-touch-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="img/favicons/apple-touch-icon-60x60.png">
-    <link rel="icon" type="image/png" href="img/favicons/favicon-32x32.png" sizes="32x32">
-    <link rel="icon" type="image/png" href="img/favicons/favicon-16x16.png" sizes="16x16">
-    <link rel="manifest" href="img/favicons/manifest.json">
-    <link rel="shortcut icon" href="img/favicons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="57x57" href="../img/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../img/favicons/apple-touch-icon-60x60.png">
+    <link rel="icon" type="image/png" href="../img/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="../img/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="../img/favicons/manifest.json">
+    <link rel="shortcut icon" href="../img/favicons/favicon.ico">
     <meta name="msapplication-TileColor" content="#00a8ff">
-    <meta name="msapplication-config" content="img/favicons/browserconfig.xml">
+    <meta name="msapplication-config" content="../img/favicons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
-    <link rel="stylesheet" type="text/css" href="css/normalize.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/owl.css">
-    <link rel="stylesheet" type="text/css" href="css/animate.css">
-    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.1.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="fonts/eleganticons/et-icons.css">
-    <link rel="stylesheet" type="text/css" href="css/cardio.css">
+    <link rel="stylesheet" type="text/css" href="../css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../css/owl.css">
+    <link rel="stylesheet" type="text/css" href="../css/animate.css">
+    <link rel="stylesheet" type="text/css" href="../fonts/font-awesome-4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../fonts/eleganticons/et-icons.css">
+    <link rel="stylesheet" type="text/css" href="../css/cardio.css">
     <link rel="stylesheet" type="text/css" href="http://localhost/Stageview/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/fix.css">
 </head>
 
 <body>
     <div class="preloader">
-        <img src="img/loader.gif" alt="Preloader image">
+        <img src="../img/loader.gif" alt="Preloader image">
     </div>
-    <nav class="navbar">
+  <nav class="navbar">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -40,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="img/logo.png" data-active-url="img/logo-active.png" alt=""></a>
+                <a class="navbar-brand" href="#"><img src="../img/logo.png"  alt=""></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -57,22 +63,38 @@
         <!-- /.container-fluid -->
     </nav>
 
-    <header id="first">
-        <div class="header-content">
-            <div class="inner">
-                <h3 class="light white">MijnIctStage.nl Stageview.</h3>
-                <h1 class="white typed">Jij zoekt een stage, wij informeren.</h1>
-                <span class="typed-cursor">|</span>
-                 <hr>
-                <a href="#get-started" class="btn btn-primary btn-xl">Get started! </a>
-            </div>
+    <div style="margin-top: 100px;" class="container">
+
+        <div class="container">
+
+        <div class="col-md-12">
+            <div class="col-md-3"> <img src="<?php echo e(asset('img/'.$book->image.'')); ?>" class="img-responsive"></div>
+            <div class="col-md-9"><h1 style="font-weight: 100; margin-top: 10%;"><?php echo e($book->compName); ?></h1></div>
         </div>
-        <video autoplay="" loop="" class="fillWidth fadeIn wow collapse in" data-wow-delay="0.5s" poster="https://s3-us-west-2.amazonaws.com/coverr/poster/Traffic-blurred2.jpg" id="video-background">
-            <source src="https://s3-us-west-2.amazonaws.com/coverr/mp4/Traffic-blurred2.mp4" type="video/mp4">Your browser does not support the video tag. I suggest you upgrade your browser.
-        </video>
-    </header>
+
+        <div class="col-md-12">
+        <div class="col-md-9 pull-right">
+            <h2>Over het bedrijf</h2>
+            <p><?php echo e($book->title); ?></p>
+
+            <h2>Review</h2>
+            <p>
+                <?php echo e($book->review); ?>
+
+            </p>
+
+            <h2>Contact</h2>
+            <p>Contactpersoon: <?php echo e($book->author); ?></p>
+            <p>Email: <?php echo e($book->publisher); ?></p>
 
 
+        </div>
+        </div>
+
+        </div>
+
+
+    </div>
     
 
     <footer>
@@ -118,13 +140,22 @@
         <a href="#" class="close-link"><i class="arrow_up"></i></a>
     </div>
     <!-- Scripts -->
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/wow.min.js"></script>
-    <script src="js/typewriter.js"></script>
-    <script src="js/jquery.onepagenav.js"></script>
-    <script src="js/main.js"></script>
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/owl.carousel.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/wow.min.js"></script>
+    <script src="../js/typewriter.js"></script>
+    <script src="../js/jquery.onepagenav.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 
+
+<style type="text/css">body{background-color: #fff;}
+
+.original{
+
+    background-color: #2C2B44;
+    margin-top: -50px;
+    padding: 15px;
+    }</style>
 </html>

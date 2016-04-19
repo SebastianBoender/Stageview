@@ -34,7 +34,11 @@
 
 @section('content')
     <h1>Creëer bedrijf</h1>
+<<<<<<< HEAD
     {!! Form::open(['url'=>'books','method'=>'POST', 'files'=>true]) !!}
+=======
+    {!! Form::open(['url' => 'books']) !!}
+>>>>>>> 23328e205a8c5b2485387d8b1790cd006c0d91fd
     <div class="form-group">
         {!! Form::label('compName', 'Bedrijfsnaam:') !!}
         {!! Form::text('compName',null,['class'=>'form-control']) !!}
@@ -53,7 +57,7 @@
     </div>
     <div class="form-group">
         {!! Form::label('Image', 'Afbeelding:') !!}
-        {!! Form::file('image') !!}
+        {!! Form::text('image',null,['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
         {!! Form::label('review', 'Review:') !!}
