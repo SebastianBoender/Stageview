@@ -52,3 +52,9 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/home', 'HomeController@index');
 });
+
+Route::get('upload', function() {
+  return View::make('books.create');
+});
+
+Route::post('apply/upload', 'BookController@store');

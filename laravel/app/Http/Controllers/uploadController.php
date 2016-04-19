@@ -21,7 +21,7 @@ public function upload() {
     // send back to the page with the input data and errors
     // return Redirect::to('upload')->withInput()->withErrors($validator);
     return $validator;
-
+}
   else {
     // checking file is valid.
     if (Input::file('image')->isValid()) {
@@ -32,12 +32,12 @@ public function upload() {
       // sending back with message
       Session::flash('success', 'Upload successfully'); 
 
-      return Redirect::to('upload2');
+      return Redirect::to('upload');
     }
     else {
       // sending back with error message.
       Session::flash('error', 'uploaded file is not valid');
-      return Redirect::to('upload3');
+      return Redirect::to('upload');
     }
   }
 }

@@ -4,21 +4,27 @@ namespace App\Http\Controllers;
 
 use Request;
 
-use Validator;
-use Redirect;
-use Session;
 use App\Book;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Validator;
+use Redirect;
+use Session;
+
 
 class BookController extends Controller
 {
+
     /**
     * Display a listing of the resource.
     *
     * @return Response
     */
+   
+
    public function index()
    {
       $books=Book::all();
@@ -49,37 +55,46 @@ class BookController extends Controller
    public function store()
    {
       $book=Request::all();
-      
+      Book::create($book);
+
       // getting all of the post data
+
       $file = array('image' => Input::file('image'));
+
       // setting up rules
+
       $rules = array('image' => 'required',); //jpeg,bmp,png and size max:10000
+
       // doing the validation, passing post data, rules and the messages
+
       $validator = Validator::make($file, $rules);
+
       if ($validator->fails()) {
+
         // send back to the page with the input data and errors
-        return Redirect::to('upload')->withInput()->withErrors($validator);
+        // return Redirect::to('upload')->withInput()->withErrors($validator);
+
+        return $validator;
       }
       else {
         // checking file is valid.
-      if (Input::file('image')->isValid()) {
-        $destinationPath = '../public/img'; // upload path
-        $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
-        $fileName = rand(11111,99999).'.'.$extension; // renameing image
-        Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
-        // sending back with message
-        Session::flash('success', 'Upload successfully'); 
-      
-        return Redirect::to('upload');
-      }
-      else {
-        // sending back with error message.
-        Session::flash('error', 'uploaded file is not valid');
-        return Redirect::to('upload');
-      }
-    }
+        if (Input::file('image')->isValid()) {
+          $destinationPath = '../public/img'; // upload path
+          $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
+          $fileName = rand(11111,99999).'.'.$extension; // renameing image
+          Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
+          // sending back with message
+          Session::flash('success', 'Upload successfully'); 
 
-      Book::create($book);
+          return Redirect::to('upload');
+        }
+        else {
+          // sending back with error message.
+          Session::flash('error', 'uploaded file is not valid');
+          return Redirect::to('upload');
+        }
+      }
+
 
       return redirect('books');
    }
@@ -127,7 +142,11 @@ class BookController extends Controller
     */
    public function destroy($id)
    {
-      Book::find($id)->delete();
+      Book::find($id)->Delete();
       return redirect('books');
+
+      //Schema::table('books', function ($table) {
+      //$table->softDeletes();
+//});
    }
 }

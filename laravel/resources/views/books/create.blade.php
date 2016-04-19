@@ -25,52 +25,10 @@
     </div>
     <div class="form-group">
         {!! Form::file('image') !!}
+    @if(Session::has('error'))
+      <p class="errors">{!! Session::get('error') !!}</p>
     </div>
-    <div class="form-group">
-        {!! Form::submit('Save', ['class' => 'btn btn-primary form-control']) !!}
-    </div>
-    {!! Form::close() !!}
-@stop
-
-@section('content')
-    <h1>Creëer bedrijf</h1>
-<<<<<<< HEAD
-    {!! Form::open(['url'=>'books','method'=>'POST', 'files'=>true]) !!}
-=======
-    {!! Form::open(['url' => 'books']) !!}
->>>>>>> 23328e205a8c5b2485387d8b1790cd006c0d91fd
-    <div class="form-group">
-        {!! Form::label('compName', 'Bedrijfsnaam:') !!}
-        {!! Form::text('compName',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('Title', 'Beschrijving:') !!}
-        {!! Form::text('title',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('Author', 'Contactpersoon:') !!}
-        {!! Form::text('author',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('Publisher', 'Email-adres:') !!}
-        {!! Form::text('publisher',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('Image', 'Afbeelding:') !!}
-        {!! Form::text('image',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('review', 'Review:') !!}
-        {!! Form::textarea('review',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('location', 'Locatie') !!}
-        {!! Form::text('location',null,['class'=>'form-control']) !!}
-    </div>
-    <div class="form-group">
-        {!! Form::label('tags', 'Tags, gescheiden door een komma') !!}
-        {!! Form::text('tags',null,['class'=>'form-control']) !!}
-    </div>
+    @endif
     <div class="form-group">
         {!! Form::submit('Save', ['class' => 'btn btn-primary form-control']) !!}
     </div>

@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Book extends Model
 {
@@ -16,4 +18,11 @@ class Book extends Model
         'location',
         'tags'
     ];
+
+    //use SoftDeletes;
+
+    //protected $dates = ['deleted_at'];
 }
+
+
+
