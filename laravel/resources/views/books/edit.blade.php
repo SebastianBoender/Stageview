@@ -1,7 +1,7 @@
 @extends('layouts.template')
 @section('content')
     <h1>Update bedrijf</h1>
-    {!! Form::model($book,['method' => 'PATCH','route'=>['books.update',$book->id]]) !!}
+    {!! Form::model($book,['url'=>'apply/upload', 'method' => 'PATCH', 'files'=>true, 'route'=>['books.update',$book->id]]) !!}
     <div class="form-group">
         {!! Form::label('compName', 'Bedrijfsnaam:') !!}
         {!! Form::text('compName',null,['class'=>'form-control']) !!}
@@ -20,7 +20,7 @@
     </div>
     <div class="form-group">
         {!! Form::label('Image', 'Afbeelding:') !!}
-        {!! Form::text('image',null,['class'=>'form-control']) !!}
+        {!! Form::file('image') !!}
     </div>
     <div class="form-group">
         {!! Form::label('review', 'Review:') !!}
