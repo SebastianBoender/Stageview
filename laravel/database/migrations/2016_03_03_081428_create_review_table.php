@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBooksTable extends Migration {
+class CreateReviewTable extends Migration {
 
     /**
      * Run the migrations.
@@ -12,19 +12,13 @@ class CreateBooksTable extends Migration {
      */
     public function up()
     {
-        Schema::create('books', function(Blueprint $table)
+        Schema::create('reviews', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->string('compName');
             $table->string('title');
             $table->text('description');
-            $table->string('image');
-            $table->string('author');
-            $table->string('publisher');
-            $table->string('review');
-            $table->string('location');
-            $table->text('tags');
-            $table->timestamp('deleted_at');
+            $table->integer('rating');
+            $table->integer('author_id');
             $table->timestamps();
         });
     }
@@ -36,7 +30,7 @@ class CreateBooksTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('books');
+        Schema::drop('reviews');
     }
 
 }

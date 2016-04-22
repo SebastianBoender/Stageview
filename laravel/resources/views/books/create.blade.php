@@ -24,11 +24,15 @@
         {!! Form::text('image',null,['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
-        {!! Form::file('image') !!}
-    @if(Session::has('error'))
+        {!! Form::label('tags', 'Tags, gescheiden door een komma') !!}
+        {!! Form::text('tags',null,['class'=>'form-control']) !!}
+    </div>
+    <div class="form-group">
+<!--        {!! Form::file('image') !!} -->
+   <!-- @if(Session::has('error'))
       <p class="errors">{!! Session::get('error') !!}</p>
     </div>
-    @endif
+    @endif -->
     <div class="form-group">
         {!! Form::submit('Save', ['class' => 'btn btn-primary form-control']) !!}
     </div>

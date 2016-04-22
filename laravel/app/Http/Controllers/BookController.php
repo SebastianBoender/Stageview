@@ -56,7 +56,7 @@ class BookController extends Controller
    {
       $book=Request::all();
       Book::create($book);
-
+/*
       // getting all of the post data
 
       $file = array('image' => Input::file('image'));
@@ -93,7 +93,7 @@ class BookController extends Controller
           Session::flash('error', 'uploaded file is not valid');
           return Redirect::to('upload');
         }
-      }
+      } */
 
 
       return redirect('books');
@@ -144,6 +144,15 @@ class BookController extends Controller
    {
       Book::find($id)->Delete();
       return redirect('books');
+
+      //Schema::table('books', function ($table) {
+      //$table->softDeletes();
+//});
+   }
+   public function activate_deactivate($id)
+   {
+      Users::find($id)->Delete();
+      return redirect('users');
 
       //Schema::table('books', function ($table) {
       //$table->softDeletes();

@@ -33,12 +33,17 @@
 
     </div>
     <div class="form-group">
-        <?php echo Form::file('image'); ?>
+        <?php echo Form::label('tags', 'Tags, gescheiden door een komma'); ?>
 
-    <?php if(Session::has('error')): ?>
+        <?php echo Form::text('tags',null,['class'=>'form-control']); ?>
+
+    </div>
+    <div class="form-group">
+<!--        <?php echo Form::file('image'); ?> -->
+   <!-- <?php if(Session::has('error')): ?>
       <p class="errors"><?php echo Session::get('error'); ?></p>
     </div>
-    <?php endif; ?>
+    <?php endif; ?> -->
     <div class="form-group">
         <?php echo Form::submit('Save', ['class' => 'btn btn-primary form-control']); ?>
 

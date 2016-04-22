@@ -1,8 +1,6 @@
 
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,6 +28,30 @@
     <link rel="stylesheet" type="text/css" href="../css/cardio.css">
     <link rel="stylesheet" type="text/css" href="http://localhost/Stageview/css/styles.css">
     <link rel="stylesheet" type="text/css" href="../css/fix.css">
+
+    <script>
+        function showResult(str) {
+          if (str.length==0) { 
+            document.getElementById("livesearch").innerHTML="";
+            document.getElementById("livesearch").style.border="0px";
+            return;
+          }
+          if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+          } else {  // code for IE6, IE5
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+          }
+          xmlhttp.onreadystatechange=function() {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+              document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
+              document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+            }
+          }
+          xmlhttp.open("GET","livesearch.php?q="+str,true);
+          xmlhttp.send();
+        }
+    </script>
 </head>
 
 <body>
@@ -129,59 +151,72 @@ body
                 <h1 class="white typed">Zoek door onze database met bedrijven.</h1>
                 <span class="typed-cursor">|</span>
                  <hr>
-                <form class="form-inline">
-  <div class="form-group">
-    <label class="sr-only" for="exampleInputEmail3">Postcode</label>
-    <input type="email" class="form-control" id="exampleInputEmail3" placeholder="Postcode">
-  </div>
-  <div class="form-group">
-    <label class="sr-only" for="exampleInputPassword3">Tags</label>
-    <input type="password" class="form-control" id="exampleInputPassword3" placeholder="Tags">
-  </div>
+                
+                <?php echo Form::open(['url' => 'books', 'method' => 'get', 'class' => 'form-inline']); ?>
 
-  <div class="form-group">
-    <label class="" for="exampleInputPassword3">Afstand</label>
-    <select type="password" class="form-control" id="exampleInputPassword4" placeholder="Afstand">
-    <option>5 km</option>
-    <option>10 km</option>
-    <option>25 km</option>
-    <option>50 km+</option>
-    </select>
-  </div>
+                <div class="form-group">
+                <?php echo Form::label('Postcode', 'Postcode:',['class' => 'sr-only']); ?>
+
+                <?php echo Form::text('postcode',null,['class'=>'form-control', 'placeholder'=>'Postcode', 'id'=>'exampleInputEmail3']); ?>
+
+                </div>
+                <div class="form-group">
+                <?php echo Form::label('Tags', 'Tags:',['class' => 'sr-only']); ?>
+
+                <?php echo Form::text('tags',null,['class'=>'form-control', 'placeholder'=>'Tags', 'id'=>'exampleInputPassword3', 'onkeyup'=>'showResult(this.value)', 'autocomplete'=>'off']); ?>
+
+                <div id="livesearch" style="position: absolute; color: white;"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="" for="exampleInputPassword3">Afstand</label>
+                    <select type="text" class="form-control" id="exampleInputPassword4" placeholder="Afstand">
+                    <option>5 km</option>
+                    <option>10 km</option>
+                    <option>25 km</option>
+                    <option>50 km+</option>
+                    </select>
+                </div>
 
 
 
-<br>
-  <button type="submit" style="margin-top: 25px;" class="btn btn-primary">Zoeken</button>
-</form>
-            </div>
+          <br>
+
+          <?php echo Form::submit('Zoeken', ['class' => 'btn btn-primary', 'style' => 'margin-top: 60px']); ?>
+
+          <?php echo Form::close(); ?>
+
+
+          </div>
         </div>
         <video autoplay="" loop="" class="fillWidth fadeIn wow collapse in" data-wow-delay="0.5s" poster="https://s3-us-west-2.amazonaws.com/coverr/poster/Traffic-blurred2.jpg" id="video-background">
             <source src="https://s3-us-west-2.amazonaws.com/coverr/mp4/Traffic-blurred2.mp4" type="video/mp4">Your browser does not support the video tag. I suggest you upgrade your browser.
         </video>
     </header>
 
-
+<section id="results">
     <div class="container " style="background-color: #ffffff;">
     	<div class=col-md-3>
     		<h3>Filter resultaten</h3>
 
     		<div class="filterBlock">
     			<h4 class="borderBottom">Locatie</h4>
-    			<a href="#">Amtserdam(87)</a><br>
-    			<a href="#">Rotterdam(63)</a><br>
-    			<a href="#">Utrecht(37)</a><br>
-    			<a href="#">Den Haag(18)</a><br>
-    			<a href="#">Breda(29)</a><br>
+    			<a href="?plaats=amsterdam#results">Amsterdam(87)</a><br>
+    			<a href="?plaats=rotterdam#results">Rotterdam(63)</a><br>
+    			<a href="?plaats=utrecht#results">Utrecht(37)</a><br>
+    			<a href="?plaats=den haag#results">Den Haag(18)</a><br>
+    			<a href="?plaats=breda#results">Breda(29)</a><br>
     		</div>
 
     		<div class="filterBlock">
     			<h4 class="borderBottom">Tags</h4>
-    			<a href="#">PHP(98)</a><br>
-    			<a href="#">C#(23)</a><br>
-    			<a href="#">CSS(96)</a><br>
-    			<a href="#">Ruby(12)</a><br>
-    			<a href="#">ASP.NET(8)</a><br>
+    			<a href="?tags=PHP#results">PHP(98)</a><br>
+                <a href="?tags=HTML5#results">HTML5(102)</a><br>
+    			<a href="?tags=Csharp#results">C#(23)</a><br>
+    			<a href="?tags=CSS#results">CSS(96)</a><br>
+    			<a href="?tags=Ruby#results">Ruby(12)</a><br>
+    			<a href="?tags=ASP#results">ASP.NET(8)</a><br>
+                <a href="/books#results">Show all</a><br>
     		</div>
 
     		<div class="filterBlock">
@@ -197,7 +232,14 @@ body
     	<div class="col-md-9">
 
 
+<?php
 
+$q_string = Request::input('tags');;
+
+?>
+
+
+<?php if(is_null($q_string)): ?>
 
 
 
@@ -208,13 +250,13 @@ body
     		<div class="company">
     			
 	    			<div class="col-md-3">
-	    				<img s<img src="<?php echo e(asset('img/'.$book->image.'')); ?>" class="img-responsive" />
+	    				<img <img src="<?php echo e(asset('img/'.$book->image.'')); ?>" class="img-responsive" />
 	    			</div>
 
 	    			<div class="col-md-9">
 	    				<h2><?php echo e($book->compName); ?></h2>
 	    				<p><?php echo e($book->title); ?></p>
-	    				<p><span style="color: #000;">Tags:</span> <a href="#">PHP</a> , <a href="#">HTML</a> , <a href="#">CSS</a></p>
+	    				<p><span style="color: #000;">Tags:</span> <a href="#">PHP</a> , <a href="#">HTML</a> , <a href="#">CSS</a> <a href="#"><?php echo e($book->tags); ?></a></p>
 	    			</div>
 	    		
     		</div>
@@ -222,6 +264,42 @@ body
 
 
 <?php endforeach; ?>
+
+<?php else: ?>
+
+<?php
+    $book3 = DB::table('books')->where('tags', 'LIKE', "%".$q_string."%")->get();
+?>
+
+<?php if(empty($book3)): ?>
+    <h2>Helaas zijn er geen bedrijven die aan uw zoek creteria voldoen..</h2>
+
+<?php else: ?>
+
+<?php foreach($book3 as $book2): ?>
+
+<a <a href="<?php echo e(url('books',$book2->id)); ?>">
+            <div class="company">
+                
+                    <div class="col-md-3">
+                        <img s<img src="<?php echo e(asset('img/'.$book2->image.'')); ?>" class="img-responsive" />
+                    </div>
+
+                    <div class="col-md-9">
+                        <h2><?php echo e($book2->compName); ?></h2>
+                        <p><?php echo e($book2->title); ?></p>
+                        <p><span style="color: #000;">Tags:</span> <a href="#">PHP</a> , <a href="#">HTML</a> , <a href="#">CSS</a> <a href="#"><?php echo e($book2->tags); ?></a></p>
+                    </div>
+                
+            </div>
+</a>
+
+<?php endforeach; ?>
+
+<?php endif; ?>
+
+<?php endif; ?>
+
 
 
 <div class="pull-right">
@@ -242,6 +320,7 @@ body
     	</div>
 
     </div>
+</section>
 
 
 

@@ -50,4 +50,13 @@ Route::get('upload', function() {
   return View::make('books.create');
 });
 
+Route::get('users', function() {
+  return View::make('users.overview');
+});
+
+Route::get('livesearch.php', function(){
+	return View::make('books.livesearch');
+});
+
+
 Route::post('apply/upload', 'BookController@store');
