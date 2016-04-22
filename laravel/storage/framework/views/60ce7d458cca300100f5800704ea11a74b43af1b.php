@@ -1,6 +1,6 @@
 <?php $__env->startSection('content'); ?>
     <h1>Update bedrijf</h1>
-    <?php echo Form::model($book,['method' => 'PATCH','route'=>['books.update',$book->id]]); ?>
+    <?php echo Form::model($book,['url'=>'apply/upload', 'method' => 'PATCH', 'files'=>true, 'route'=>['books.update',$book->id]]); ?>
 
     <div class="form-group">
         <?php echo Form::label('compName', 'Bedrijfsnaam:'); ?>
@@ -29,7 +29,7 @@
     <div class="form-group">
         <?php echo Form::label('Image', 'Afbeelding:'); ?>
 
-        <?php echo Form::text('image',null,['class'=>'form-control']); ?>
+        <?php echo Form::file('image'); ?>
 
     </div>
     <div class="form-group">
