@@ -59,4 +59,12 @@ Route::get('livesearch.php', function(){
 });
 
 
+Route::get('xmlparse', function(){
+	return View::make('users.xml');
+});
+
+Route::get('maps', function(){
+	return View::make('users.maps');
+});
+
 Route::post('apply/upload', 'BookController@store');

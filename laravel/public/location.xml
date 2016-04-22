@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DistanceMatrixResponse>
+ <status>OK</status>
+ <origin_address>Emmertarwehof 6, 2952 EA Alblasserdam, Nederland</origin_address>
+ <origin_address>Alblasserdam, Nederland</origin_address>
+ <destination_address>Dordrecht, Nederland</destination_address>
+ <destination_address>Maria Montessorilaan 12, 3312 KJ Dordrecht, Nederland</destination_address>
+ <row>
+  <element>
+   <status>OK</status>
+   <duration>
+    <value>1914</value>
+    <text>32 min.</text>
+   </duration>
+   <distance>
+    <value>9139</value>
+    <text>9,1 km</text>
+   </distance>
+  </element>
+  <element>
+   <status>OK</status>
+   <duration>
+    <value>2234</value>
+    <text>37 min.</text>
+   </duration>
+   <distance>
+    <value>10991</value>
+    <text>11,0 km</text>
+   </distance>
+  </element>
+ </row>
+ <row>
+  <element>
+   <status>OK</status>
+   <duration>
+    <value>2127</value>
+    <text>35 min.</text>
+   </duration>
+   <distance>
+    <value>10240</value>
+    <text>10,2 km</text>
+   </distance>
+  </element>
+  <element>
+   <status>OK</status>
+   <duration>
+    <value>2447</value>
+    <text>41 min.</text>
+   </duration>
+   <distance>
+    <value>12091</value>
+    <text>12,1 km</text>
+   </distance>
+  </element>
+ </row>
+</DistanceMatrixResponse>
