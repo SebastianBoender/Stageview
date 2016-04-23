@@ -9,7 +9,7 @@ if (!empty($_GET["ocity"] && $_GET["ostreet"] && $_GET["dcity"] && $_GET["dstree
 
   $xmlDoc=new DOMDocument();
 
-  $map_url = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" .$ostreet. "|" .$ocity. "&destinations=" .$dcity. "|" .$dstreet. "&mode=car&language=nl-FR&key=AIzaSyAAS35ENab_Wc8EnFyT9Sg_sl8gN-JCNkw";
+  $map_url = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" .$ostreet. "+" .$ocity. "&destinations=" .$dcity. "+" .$dstreet. "&mode=car&language=nl-FR&key=AIzaSyAAS35ENab_Wc8EnFyT9Sg_sl8gN-JCNkw";
 
   $xmlDoc->load($map_url);
 
