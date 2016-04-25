@@ -10,6 +10,8 @@ class Book extends Model
 {
     protected $fillable=[
         'compName',
+        'city',
+        'street',
         'title',
         'author',
         'publisher',

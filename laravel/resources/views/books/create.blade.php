@@ -20,6 +20,14 @@
         {!! Form::text('publisher',null,['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
+        {!! Form::label('City', 'City:') !!}
+        {!! Form::text('city',null,['class'=>'form-control']) !!}
+    </div>
+    <div class="form-group">
+        {!! Form::label('Street', 'Street:') !!}
+        {!! Form::text('street',null,['class'=>'form-control']) !!}
+    </div>
+    <div class="form-group">
         {!! Form::label('Image', 'Image:') !!}
         {!! Form::text('image',null,['class'=>'form-control']) !!}
     </div>
