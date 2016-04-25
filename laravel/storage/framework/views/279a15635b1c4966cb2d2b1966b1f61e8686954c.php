@@ -27,6 +27,18 @@
 
     </div>
     <div class="form-group">
+        <?php echo Form::label('City', 'City:'); ?>
+
+        <?php echo Form::text('city',null,['class'=>'form-control']); ?>
+
+    </div>
+    <div class="form-group">
+        <?php echo Form::label('Street', 'Street:'); ?>
+
+        <?php echo Form::text('street',null,['class'=>'form-control']); ?>
+
+    </div>
+    <div class="form-group">
         <?php echo Form::label('Image', 'Image:'); ?>
 
         <?php echo Form::text('image',null,['class'=>'form-control']); ?>
