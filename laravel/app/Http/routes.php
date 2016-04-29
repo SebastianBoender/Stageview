@@ -32,7 +32,7 @@ Route::get('/', function () {
 
 Route::get('books/admin' , 'BookController@companies');
 
-Route::resource('books','BookController');
+
 
 Route::group(['middleware' => ['web']], function () {
     //
@@ -44,6 +44,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('/home', 'HomeController@index');
+    Route::resource('books','BookController');
 });
 
 Route::get('upload', function() {

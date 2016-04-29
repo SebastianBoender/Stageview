@@ -15,12 +15,16 @@ if (strlen($q)>0) {
 
       if (stristr($y->item(0)->childNodes->item(0)->nodeValue,$q)) {
         if ($hint=="") {
-          $hint="<a style='color:white; text-decoration: none; font-size:15px;' href='" . 
+          $hint="<a style='color:white; text-decoration: none; font-size:15px;     display: inline-block;
+    width: 100%; background-color: #36333D;
+    padding: 5px;' href='" . 
           $z->item(0)->childNodes->item(0)->nodeValue . 
           "#results' >" . 
           $y->item(0)->childNodes->item(0)->nodeValue . "</a>";
         } else {
-          $hint=$hint . "<br /><a style='color:white; text-decoration: none; font-size: 15px;' href='" . 
+          $hint=$hint . "<br /><a style='color:white; text-decoration: none; font-size: 15px;     display: inline-block;
+    width: 100%;     background-color: #36333D;
+    padding: 5px;' href='" . 
           $z->item(0)->childNodes->item(0)->nodeValue . 
           "#results' >" . 
           $y->item(0)->childNodes->item(0)->nodeValue . "</a>";
