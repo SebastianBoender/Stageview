@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Stageview | Jij zoekt een stage, wij informeren</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <!-- Favicons (created with http://realfavicongenerator.net/)-->
     <link rel="apple-touch-icon" sizes="57x57" href="../img/favicons/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="../img/favicons/apple-touch-icon-60x60.png">
@@ -238,6 +236,12 @@ $q_string = Request::input('tags');;
 
 @foreach ($books as $book)
 
+<?php
+$tags_dtb = $book['tags'];
+
+$tags = explode(',', $tags_dtb);
+
+?>
 
 <a <a href="{{url('books',$book->id)}}">
     		<div class="company">
@@ -249,7 +253,18 @@ $q_string = Request::input('tags');;
 	    			<div class="col-md-9">
 	    				<h2>{{ $book->compName }}</h2>
 	    				<p>{{ $book->title }}</p>
-	    				<p><span style="color: #000;">Tags:</span> <a href="#">PHP</a> , <a href="#">HTML</a> , <a href="#">CSS</a> <a href="#">{{ $book->tags }}</a></p>
+                        <span style="color: #000;">Tags:</span> 
+                            
+                            <?php
+                            foreach ($tags as $tag):
+                            
+    	    				echo '<a href="?tags='.$tag.'">' .$tag. '</a>, ';
+
+                            
+                            endforeach;
+                            ?>
+                            
+
 	    			</div>
 	    		
     		</div>
@@ -281,7 +296,10 @@ $q_string = Request::input('tags');;
                     <div class="col-md-9">
                         <h2>{{ $book2->compName }}</h2>
                         <p>{{ $book2->title }}</p>
-                        <p><span style="color: #000;">Tags:</span> <a href="#">PHP</a> , <a href="#">HTML</a> , <a href="#">CSS</a> <a href="#">{{ $book2->tags }}</a></p>
+                        <span style="color: #000;">Tags:</span> 
+
+    
+
                     </div>
                 
             </div>
@@ -360,7 +378,7 @@ $q_string = Request::input('tags');;
         <a href="#" class="close-link"><i class="arrow_up"></i></a>
     </div>
     <!-- Scripts -->
-    <script src="../js/jquery-1.11.1.min.js"></script>
+<!--    <script src="../js/jquery-1.11.1.min.js"></script> -->
     <script src="../js/owl.carousel.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/wow.min.js"></script>

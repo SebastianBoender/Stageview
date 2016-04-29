@@ -1,4 +1,6 @@
 <?php
+/*
+
 
 try {
   $dbhost = "localhost";
@@ -21,25 +23,17 @@ if (!empty($_GET["ozip"]) && is_numeric($_GET["ozip"]) && !empty($_GET["radius"]
 
   $city_req_sql = $link->prepare("SELECT city,street,compName FROM books");
   $old_records_sql = $link->prepare("SELECT * FROM distances WHERE zipcode = $ozip");
-  $count_companies = $link->prepare("SELECT COUNT(compName) AS counted FROM books");
-  $count_zip = $link->prepare("SELECT COUNT(zipcode) AS counted FROM distances where zipcode = $ozip");
 
   $city_req_sql->execute();
   $old_records_sql->execute();
-  $count_companies->execute();
-  $count_zip->execute();
 
   $result = $city_req_sql->fetchAll(\PDO::FETCH_ASSOC);
   $old_results = $old_records_sql->fetchAll(\PDO::FETCH_ASSOC);
-  
-  $count_zip_final = $count_zip->fetchAll(\PDO::FETCH_ASSOC);
-  $count_company_final = $count_companies->fetchAll(\PDO::FETCH_ASSOC);
-
 
   echo 'Bedrijven in een straal van ' .$radius_km. ' km:';
   echo '<br>';
 
-  if ($count_company_final->counted === $count_zip_final->counted) {
+  if (!empty($old_results)){
 
     foreach ($old_results as $old_result):
 
@@ -68,31 +62,22 @@ if (!empty($_GET["ozip"]) && is_numeric($_GET["ozip"]) && !empty($_GET["radius"]
       $dstreet = $row['street'];
       $company = $row['compName'];
 
-      $company_sql = $link->prepare("SELECT company FROM distances WHERE company = $company");
-      $company_sql->execute();
+      $map_url = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" .$ozip. "+netherlands&destinations=" .$dcity. "+" .$dstreet. "&mode=car&language=nl-FR&key=AIzaSyAAS35ENab_Wc8EnFyT9Sg_sl8gN-JCNkw";
 
-      $company_result = $company_sql->fetchAll(\PDO::FETCH_ASSOC);
+      $xmlDoc->load($map_url);
 
-      if (empty($company_result)) {
+      $y=$xmlDoc->getElementsByTagName('status')->item(0);
 
-        $map_url = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" .$ozip. "+netherlands&destinations=" .$dcity. "+" .$dstreet. "&mode=car&language=nl-FR&key=AIzaSyAAS35ENab_Wc8EnFyT9Sg_sl8gN-JCNkw";
+      $x=$xmlDoc->getElementsByTagName('distance')->item(0)->getElementsByTagName('value')->item(0);
 
-        $xmlDoc->load($map_url);
+      $data=$x->textContent;
 
-        $y=$xmlDoc->getElementsByTagName('status')->item(0);
-
-        $x=$xmlDoc->getElementsByTagName('distance')->item(0)->getElementsByTagName('value')->item(0);
-
-        $data=$x->textContent;
-
-        $statement = $link->prepare("INSERT INTO distances(zipcode, distance, company) VALUES(:zipcode, :distance, :company)");
-        $statement->execute(array(
-          "zipcode" => $ozip,
-          "distance" => $data,
-          "company" => $company
-        ));
-
-      }
+      $statement = $link->prepare("INSERT INTO distances(zipcode, distance, company) VALUES(:zipcode, :distance, :company)");
+      $statement->execute(array(
+        "zipcode" => $ozip,
+        "distance" => $data,
+        "company" => $company
+      ));
 
       if ($data <= $radius){
 
@@ -114,4 +99,4 @@ if (!empty($_GET["ozip"]) && is_numeric($_GET["ozip"]) && !empty($_GET["radius"]
 
 }
 
-?>
+*/
