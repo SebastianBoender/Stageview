@@ -104,7 +104,7 @@ if (!empty($_GET["ozip"]) && is_numeric($_GET["ozip"]) && !empty($_GET["radius"]
 
 
 try {
-  $dbhost = "localhost";
+  $dbhost = "127.0.0.1";
   $dbname = "stageview";
   $dbusername = "root";
   $dbpassword = "";

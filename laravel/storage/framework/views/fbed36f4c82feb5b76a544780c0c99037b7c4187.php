@@ -33,7 +33,7 @@
         function showResult(str) {
           if (str.length==0) { 
             document.getElementById("livesearch").innerHTML="";
-            document.getElementById("livesearch").style.border="0px";
+            $("#livesearch").removeClass("hintBox");
             return;
           }
           if (window.XMLHttpRequest) {
@@ -45,13 +45,29 @@
           xmlhttp.onreadystatechange=function() {
             if (xmlhttp.readyState==4 && xmlhttp.status==200) {
               document.getElementById("livesearch").innerHTML=xmlhttp.responseText;
-              document.getElementById("livesearch").style.border="1px 5px 10px 20px  solid #A5ACB2";
+              $("#livesearch").addClass('hintBox');
             }
           }
           xmlhttp.open("GET","livesearch.php?q="+str,true);
           xmlhttp.send();
         }
     </script>
+
+    <style type="text/css">
+/*    .hintBox
+    {
+        border-right: 1px solid white;
+        border-left: 1px solid white;
+        border-bottom: 1px solid white;
+        display: inline-block;
+        float: left;
+    }*/
+
+    .hintBox{
+        width: 100%;
+        display: inline-block;
+    }
+</style>
 </head>
 
 <body>
@@ -76,8 +92,21 @@
                     <li><a href="/Stageview/companies.php">Bedrijven</a></li>
                     <li><a href="#services">Contact</a></li>
                     <li><a href="#pricing">FAQ</a></li>
-                    <li><a href="#" data-toggle="modal" data-target="#modal2">Log in</a></li>
-                    <li><a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue">Registreer</a></li>
+                        <?php if(Auth::guest()): ?>
+                            <li><a href="#" data-toggle="modal" data-target="#modal2">Log in</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue">Registreer</a></li>
+                    <?php else: ?>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <?php echo e(Auth::user()->name); ?> <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a>Admin</a></li>
+                                <li><a href="<?php echo e(url('/logout')); ?>"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -142,6 +171,11 @@ body
 }
 
 
+#livesearch a:hover{
+    background-color: #CCCCCC!important;
+    color: #000 !important;
+}
+
 	</style>
 
 
@@ -160,12 +194,12 @@ body
                 <?php echo Form::text('postcode',null,['class'=>'form-control', 'placeholder'=>'Postcode', 'id'=>'exampleInputEmail3']); ?>
 
                 </div>
-                <div class="form-group">
+                <div class="form-group hintBoxMother" style="position: relative;">
                 <?php echo Form::label('Tags', 'Tags:',['class' => 'sr-only']); ?>
 
                 <?php echo Form::text('tags',null,['class'=>'form-control', 'placeholder'=>'Tags', 'id'=>'exampleInputPassword3', 'onkeyup'=>'showResult(this.value)', 'autocomplete'=>'off']); ?>
 
-                <div id="livesearch" style="position: absolute; color: white;"></div>
+                <div id="livesearch" style="position: absolute; color: white; left: 0;"></div>
                 </div>
 
                 <div class="form-group">
