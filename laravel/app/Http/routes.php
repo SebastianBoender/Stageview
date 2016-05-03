@@ -45,15 +45,14 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/home', 'HomeController@index');
     Route::resource('books','BookController');
+    Route::resource('users','UserController');
 });
 
 Route::get('upload', function() {
   return View::make('books.create');
 });
 
-Route::get('users', function() {
-  return View::make('users.overview');
-});
+
 
 Route::get('livesearch.php', function(){
 	return View::make('books.livesearch');
