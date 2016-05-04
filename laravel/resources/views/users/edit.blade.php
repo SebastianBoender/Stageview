@@ -1,7 +1,7 @@
 @extends('layouts.template')
 @section('content')
     <h1>Update bedrijf</h1>
-    {!! Form::model($user,['url'=>'apply/upload', 'method' => 'PATCH', 'files'=>true, 'route'=>['users.update',$user->id]]) !!}
+    {!! Form::model($user,['method' => 'PATCH', 'route'=>['users.update',$user->id]]) !!}
 
     <div class="form-group">
         {!! Form::label('name', 'name:') !!}
@@ -14,13 +14,13 @@
     </div>
 
     <div class="form-group">
-        {!! Form::label('active', 'active:') !!}
-        {!! Form::select('role', array('Student' => 'Student', 'Teacher' => 'Teacher', Admin' => 'Admin' )); !!}
+        {!! Form::label('role', 'role:') !!}
+        {!! Form::select('role', array('Admin' => 'Admin', 'Docent' => 'Docent', 'Leerling' => 'Leerling')); !!}
     </div>
 
     <div class="form-group">
         {!! Form::label('active', 'active:') !!}
-        {!! Form::select('role', array('Inactive' => 'Inactive', 'Active' => 'Active')); !!}
+        {!! Form::select('active', array('1' => 'Active', '0' => 'Inactive')); !!}
     </div>
 
     <div class="form-group">
