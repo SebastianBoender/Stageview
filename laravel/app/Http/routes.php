@@ -46,6 +46,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/home', 'HomeController@index');
     Route::resource('books','BookController');
     Route::resource('users','UserController');
+    Route::resource('trashed-users','TrashedUserController');
 });
 
 Route::get('upload', function() {

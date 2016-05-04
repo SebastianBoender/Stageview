@@ -142,20 +142,8 @@ class BookController extends Controller
     */
    public function destroy($id)
    {
-      Book::find($id)->Delete();
+      $user = Users::find($id);
+      $user->delete();
       return redirect('books');
-
-      //Schema::table('books', function ($table) {
-      //$table->softDeletes();
-//});
-   }
-   public function activate_deactivate($id)
-   {
-      Users::find($id)->Delete();
-      return redirect('users');
-
-      //Schema::table('books', function ($table) {
-      //$table->softDeletes();
-//});
    }
 }

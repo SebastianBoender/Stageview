@@ -21,9 +21,9 @@ class Book extends Model
         'tags'
     ];
 
-    //use SoftDeletes;
+    use SoftDeletes;
 
-    //protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at'];
 }
 
 

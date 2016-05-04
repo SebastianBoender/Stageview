@@ -24,7 +24,7 @@
              <?php else: ?>
                 <td>Yes</td>
              <?php endif; ?>
-             <td><a href="<?php echo e(route('users.edit',$users->id)); ?>" class="btn btn-warning">Update</a></td>
+             <td><a href="<?php echo e(route('users.edit',$users->id)); ?>" class="btn btn-warning">Edit</a></td>
              <td>
              <?php echo Form::open(['method' => 'DELETE', 'route'=>['users.destroy', $users->id]]); ?>
 

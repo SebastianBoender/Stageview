@@ -15,7 +15,7 @@
 
     <div class="form-group">
         {!! Form::label('role', 'role:') !!}
-        {!! Form::select('role', array('Admin' => 'Admin', 'Docent' => 'Docent', 'Leerling' => 'Leerling')); !!}
+        {!! Form::select('role', array('Admin' => 'Admin', 'Docent' => 'Docent', 'Student' => 'Student')); !!}
     </div>
 
     <div class="form-group">

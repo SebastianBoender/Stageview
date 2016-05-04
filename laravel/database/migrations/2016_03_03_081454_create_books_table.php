@@ -21,10 +21,11 @@ class CreateBooksTable extends Migration {
             $table->string('image');
             $table->string('author');
             $table->string('publisher');
+            $table->string('city');
+            $table->string('street');
             $table->string('review');
             $table->string('location');
             $table->text('tags');
-            $table->timestamp('deleted_at');
             $table->timestamps();
         });
     }
