@@ -111,7 +111,7 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a>Admin</a></li>
+                                <li><a><?php echo e(Auth::user()->role); ?></a></li>
                                 <li><a href="<?php echo e(url('/logout')); ?>"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
