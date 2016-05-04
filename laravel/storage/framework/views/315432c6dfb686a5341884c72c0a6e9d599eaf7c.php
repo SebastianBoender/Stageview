@@ -9,6 +9,17 @@
                         <?php echo csrf_field(); ?>
 
 
+                        <?php
+                            $error_string = Request::input('error');
+                        ?>
+
+                        <?php if(!is_null($error_string)): ?>    
+                        <span class="help-block">
+                            <center><strong style="color:red;">Please login to view this page!</strong></center>
+                        </span>
+                        <br />
+                        <?php endif; ?>
+
                         <div class="form-group<?php echo e($errors->has('email') ? ' has-error' : ''); ?>">
                             <label class="col-md-4 control-label">E-Mail Address</label>
 
