@@ -1,6 +1,7 @@
 <?php $__env->startSection('content'); ?>
  <h1>Stageview admin</h1>
  <a href="<?php echo e(url('/books/create')); ?>" class="btn btn-success">Creëer bedrijf</a>
+ <a href="/trashed-books" class="btn btn-warning">See Deleted</a>
  <hr>
  <table class="table table-striped table-bordered table-hover">
      <thead>
@@ -41,5 +42,7 @@
      </tbody>
 
  </table>
+
+
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts/template', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

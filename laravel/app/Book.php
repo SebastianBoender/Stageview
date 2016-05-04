@@ -16,6 +16,8 @@ class Book extends Model
         'author',
         'publisher',
         'image',
+        'created_at',
+        'updated_at',
         'review',
         'location',
         'tags'
