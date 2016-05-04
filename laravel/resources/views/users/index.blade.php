@@ -16,16 +16,16 @@
      </tr>
      </thead>
      <tbody>
-     @foreach ($users as $user)
+     @foreach ($user as $users)
          <tr>
-             <td>{{ $user->name }}</td>
-             <td>{{ $user->email }}</td>
-             <td>{{ $user->created_at }}</td>
-             <td>{{ $user->role }}</td>
-             <td>{{ $user->active }}</td>
-             <td><a href="{{route('users.edit',$user->id)}}" class="btn btn-warning">Update</a></td>
+             <td>{{ $users->name }}</td>
+             <td>{{ $users->email }}</td>
+             <td>{{ $users->created_at }}</td>
+             <td>{{ $users->role }}</td>
+             <td>{{ $users->active }}</td>
+             <td><a href="{{route('users.edit',$users->id)}}" class="btn btn-warning">Update</a></td>
              <td>
-             {!! Form::open(['method' => 'DELETE', 'route'=>['users.destroy', $user->id]]) !!}
+             {!! Form::open(['method' => 'DELETE', 'route'=>['users.destroy', $users->id]]) !!}
              {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
              {!! Form::close() !!}
              </td>
