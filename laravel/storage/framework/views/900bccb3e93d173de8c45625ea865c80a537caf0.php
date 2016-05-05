@@ -16,6 +16,9 @@
      </thead>
      <tbody>
      <?php foreach($books as $book): ?>
+          <?php
+            $id = $book->id;
+         ?>
          <tr>
              <td><?php echo e($book->id); ?></td>
              <td><?php echo e($book->compName); ?></td>
@@ -23,7 +26,11 @@
              <td><?php echo e($book->author); ?></td>
              <td><?php echo e($book->publisher); ?></td>
              <td><img src="<?php echo e(asset('img/'.$book->image.'')); ?>" height="45" width="45"></td>
-             <td><a href="<?php echo e(route('books.edit',$book->id)); ?>" class="btn btn-warning">Undelete</a></td>
+             <?php echo Form::open(['method'=>'POST', 'url' => '/trashed-books/restore/'.$id]); ?>
+
+             <td><?php echo Form::submit('Undelete', ['class' => 'btn btn-warning']); ?></td>
+             <?php echo Form::close(); ?>
+
              <td>
              <?php echo Form::open(['method' => 'DELETE', 'route'=>['trashed-books.destroy', $book->id]]); ?>
 

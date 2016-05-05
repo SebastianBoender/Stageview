@@ -43,6 +43,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('books','BookController');
     Route::resource('users','UserController');
     Route::resource('trashed-books','TrashedBookController');
+    Route::post('/trashed-books/restore/{id}','TrashedBookController@restore');
 
 
 Route::get('upload', function() {

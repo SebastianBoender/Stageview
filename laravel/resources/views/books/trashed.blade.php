@@ -20,6 +20,9 @@
      </thead>
      <tbody>
      @foreach ($books as $book)
+          <?php
+            $id = $book->id;
+         ?>
          <tr>
              <td>{{ $book->id }}</td>
              <td>{{ $book->compName }}</td>
@@ -27,7 +30,9 @@
              <td>{{ $book->author }}</td>
              <td>{{ $book->publisher }}</td>
              <td><img src="{{asset('img/'.$book->image.'')}}" height="45" width="45"></td>
-             <td><a href="{{route('books.edit',$book->id)}}" class="btn btn-warning">Undelete</a></td>
+             {!! Form::open(['method'=>'POST', 'url' => '/trashed-books/restore/'.$id]) !!}
+             <td>{!! Form::submit('Undelete', ['class' => 'btn btn-warning']) !!}</td>
+             {!! Form::close() !!}
              <td>
              {!! Form::open(['method' => 'DELETE', 'route'=>['trashed-books.destroy', $book->id]]) !!}
              {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}

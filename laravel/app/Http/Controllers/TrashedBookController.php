@@ -16,15 +16,7 @@ use Session;
 
 
 class TrashedBookController extends Controller
-{
-
-    /**
-    * Display a listing of the resource.
-    *
-    * @return Response
-    */
-   
-
+{  
    public function index()
    {
       $books=Book::onlyTrashed()->paginate(100);;
@@ -33,14 +25,14 @@ class TrashedBookController extends Controller
 
    public function restore($id)
    {
-   	  $book=Book::find($id);
+   	  $book=Book::onlyTrashed()->find($id);
    	  $book->restore();
-      return redirect('books');
+      return redirect('trashed-books');
    }
 
    public function destroy($id)
    {
-      $book=Book::find($id);
+      $book=Book::onlyTrashed()->find($id);
       $book->forceDelete();
       return redirect('trashed-books');
    }
