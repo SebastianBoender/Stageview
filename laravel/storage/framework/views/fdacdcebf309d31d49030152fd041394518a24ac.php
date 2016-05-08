@@ -20,7 +20,7 @@
     <div class="form-group">
         <?php echo Form::label('role', 'role:'); ?>
 
-        <?php echo Form::select('role', array('Admin' => 'Admin', 'Docent' => 'Docent', 'Leerling' => 'Leerling'));; ?>
+        <?php echo Form::select('role', array('Admin' => 'Admin', 'Docent' => 'Docent', 'Student' => 'Student'));; ?>
 
     </div>
 

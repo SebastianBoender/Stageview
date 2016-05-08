@@ -238,7 +238,7 @@ body
 
           <br>
 
-          {!! Form::submit('Zoeken', ['class' => 'btn btn-primary', 'style' => 'margin-top: 60px']) !!}
+          {!! Form::submit('Zoeken', ['class' => 'btn btn-primary', 'style' => 'margin-top: 80px']) !!}
           {!! Form::close() !!}
 
           </div>
