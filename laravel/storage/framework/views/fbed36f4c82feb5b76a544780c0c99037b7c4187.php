@@ -1,5 +1,13 @@
 
 
+<?php
+
+$q_string = Request::input('tags');
+$d_string = Request::input('distance');
+$z_string = Request::input('ozip');
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Stageview | Jij zoekt een stage, wij informeren</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <!-- Favicons (created with http://realfavicongenerator.net/)-->
     <link rel="apple-touch-icon" sizes="57x57" href="../img/favicons/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="../img/favicons/apple-touch-icon-60x60.png">
@@ -95,14 +104,14 @@
                         <?php if(Auth::guest()): ?>
                             <li><a href="#" data-toggle="modal" data-target="#modal2">Log in</a></li>
                             <li><a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue">Registreer</a></li>
-                    <?php else: ?>
+                        <?php else: ?>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <?php echo e(Auth::user()->name); ?> <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a>Admin</a></li>
+                                <li><a><?php echo e(Auth::user()->role); ?></a></li>
                                 <li><a href="<?php echo e(url('/logout')); ?>"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
                         </li>
@@ -191,24 +200,34 @@ body
                 <div class="form-group">
                 <?php echo Form::label('Postcode', 'Postcode:',['class' => 'sr-only']); ?>
 
-                <?php echo Form::text('postcode',null,['class'=>'form-control', 'placeholder'=>'Postcode', 'id'=>'exampleInputEmail3']); ?>
+                <?php if(!is_null($z_string)): ?>
+                <?php echo Form::text('ozip',$z_string,['class'=>'form-control', 'placeholder'=>'Postcode', 'id'=>'exampleInputEmail3']); ?>
 
+                <?php else: ?>
+                <?php echo Form::text('ozip',null,['class'=>'form-control', 'placeholder'=>'Postcode', 'id'=>'exampleInputEmail3']); ?>
+
+                <?php endif; ?>
                 </div>
                 <div class="form-group hintBoxMother" style="position: relative;">
                 <?php echo Form::label('Tags', 'Tags:',['class' => 'sr-only']); ?>
 
+                <?php if(!is_null($q_string)): ?>
+                <?php echo Form::text('tags',$q_string,['class'=>'form-control', 'placeholder'=>'Tags', 'id'=>'exampleInputPassword3', 'onkeyup'=>'showResult(this.value)', 'autocomplete'=>'off']); ?>
+
+                <?php else: ?>
                 <?php echo Form::text('tags',null,['class'=>'form-control', 'placeholder'=>'Tags', 'id'=>'exampleInputPassword3', 'onkeyup'=>'showResult(this.value)', 'autocomplete'=>'off']); ?>
 
+                <?php endif; ?>
                 <div id="livesearch" style="position: absolute; color: white; left: 0;"></div>
                 </div>
 
                 <div class="form-group">
                     <label class="" for="exampleInputPassword3">Afstand</label>
-                    <select type="text" class="form-control" id="exampleInputPassword4" placeholder="Afstand">
-                    <option>5 km</option>
-                    <option>10 km</option>
-                    <option>25 km</option>
-                    <option>50 km+</option>
+                    <select name="distance" type="text" class="form-control" id="exampleInputPassword4" placeholder="Afstand">
+                    <option value="5000">5 km</option>
+                    <option value="10000">10 km</option>
+                    <option value="25000">25 km</option>
+                    <option value="50000">50 km+</option>
                     </select>
                 </div>
 
@@ -266,19 +285,182 @@ body
     	<div class="col-md-9">
 
 
+<?php if(!is_null($d_string)): ?>
+
 <?php
 
-$q_string = Request::input('tags');;
+try {
+  $dbhost = "127.0.0.1";
+  $dbname = "stageview";
+  $dbusername = "root";
+  $dbpassword = "";
+
+  $link = new PDO("mysql:host=$dbhost;dbname=$dbname",$dbusername,$dbpassword);
+} catch (PDOException $e) {
+  print $e->getMessage();
+}
+
+
+if (!empty($_GET["ozip"]) && is_numeric($_GET["ozip"]) && !empty($_GET["distance"]) && is_numeric($_GET["distance"])) {
+
+  $ozip = $_GET["ozip"];
+  $radius = $_GET["distance"];
+
+  $radius_km = $radius/1000;
+
+  $city_req_sql = $link->prepare("SELECT city,street,compName FROM books");
+  $old_records_sql = $link->prepare("SELECT * FROM distances WHERE zipcode = $ozip");
+  $count_companies = $link->prepare("SELECT COUNT(compName) AS counted FROM books");
+  $count_zip = $link->prepare("SELECT COUNT(zipcode) AS counted FROM distances where zipcode = $ozip");
+
+  $city_req_sql->execute();
+  $old_records_sql->execute();
+  $count_companies->execute();
+  $count_zip->execute();
+
+  $result = $city_req_sql->fetchAll(\PDO::FETCH_ASSOC);
+  $old_results = $old_records_sql->fetchAll(\PDO::FETCH_ASSOC);
+  
+  $count_zip_final = $count_zip->fetchAll(\PDO::FETCH_ASSOC);
+  $count_company_final = $count_companies->fetchAll(\PDO::FETCH_ASSOC);
+
+
+  echo 'Bedrijven in een straal van ' .$radius_km. ' km:';
+  echo '<br>';
+
+  if ($count_company_final[0]["counted"] == $count_zip_final[0]["counted"]) {
+
+    foreach ($old_results as $old_result):
+
+      $distance_old = $old_result['distance'];
+      $companyname = $old_result['company'];
+
+
+        if ($distance_old <= $radius){
+
+          $distance_km = $distance_old/1000;
+
+          echo '<a <a href="'.$companyname.'">
+                <div class="company">
+                    
+                        <div class="col-md-3">
+                            <img src="'.$companyname.'" class="img-responsive" />
+                        </div>
+
+                        <div class="col-md-9">
+                            <h2>'.$companyname.'</h2>
+                            <p>'.$companyname.' ('.$distance_km.' km)</p>
+                            <span style="color: #000;">Tags:</span> 
+
+        
+
+                        </div>
+                    
+                </div>
+                </a><br><br>';
+        } 
+
+    endforeach;
+
+  } else {
+
+    foreach ($result as $row):
+
+      $xmlDoc=new DOMDocument();
+
+      $dcity = $row['city'];
+      $dstreet = $row['street'];
+      $company = $row['compName'];
+      $deleted = $row['deleted_at'];
+      //$company_id = $row['id'];
+      //$company_image = $row['image'];
+
+      $company_sql = $link->prepare("SELECT company FROM distances WHERE company = $company");
+      $company_sql->execute();
+
+      $company_result = $company_sql->fetchAll(\PDO::FETCH_ASSOC);
+
+      if (empty($deleted)) {
+        if (empty($company_result)) {
+
+          $map_url = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" .$ozip. "+netherlands&destinations=" .$dcity. "+" .$dstreet. "&mode=car&language=nl-FR&key=AIzaSyAAS35ENab_Wc8EnFyT9Sg_sl8gN-JCNkw";
+
+          $xmlDoc->load($map_url);
+
+          $y=$xmlDoc->getElementsByTagName('status')->item(0);
+
+          $x=$xmlDoc->getElementsByTagName('distance')->item(0)->getElementsByTagName('value')->item(0);
+
+          $data=$x->textContent;
+
+          $statement = $link->prepare("INSERT INTO distances(zipcode, distance, company) VALUES(:zipcode, :distance, :company)");
+          $statement->execute(array(
+            "zipcode" => $ozip,
+            "distance" => $data,
+            "company" => $company
+          ));
+
+        }
+      }
+
+      if ($data <= $radius){
+
+        $distance_km = $data/1000;
+
+        echo '<br>';
+        echo $company;
+        echo " (" .$distance_km. " km)";
+
+       
+
+        echo '<a <a href="">
+            <div class="company">
+                
+                    <div class="col-md-3">
+                        <img src="placeholderCompany.jpg" class="img-responsive" />
+                    </div>
+
+                    <div class="col-md-9">
+                        <h2>'.$company.'</h2>
+                        <p>'.$company.'</p>
+                        <span style="color: #000;">Tags:</span> 
+
+    
+
+                    </div>
+                
+            </div>
+</a>';
+
+    } 
+
+      endforeach;
+
+  }
+
+} else {
+
+  echo 'Error parsing XML';
+
+}
 
 ?>
+
+<?php endif; ?>
+
 
 
 <?php if(is_null($q_string)): ?>
 
 
-
 <?php foreach($books as $book): ?>
 
+<?php
+$tags_dtb = $book['tags'];
+
+$tags = explode(',', $tags_dtb);
+
+?>
 
 <a <a href="<?php echo e(url('books',$book->id)); ?>">
     		<div class="company">
@@ -290,7 +472,18 @@ $q_string = Request::input('tags');;
 	    			<div class="col-md-9">
 	    				<h2><?php echo e($book->compName); ?></h2>
 	    				<p><?php echo e($book->title); ?></p>
-	    				<p><span style="color: #000;">Tags:</span> <a href="#">PHP</a> , <a href="#">HTML</a> , <a href="#">CSS</a> <a href="#"><?php echo e($book->tags); ?></a></p>
+                        <span style="color: #000;">Tags:</span> 
+                            
+                            <?php
+                            foreach ($tags as $tag):
+                            
+    	    				echo '<a href="?tags='.$tag.'">' .$tag. '</a>, ';
+
+                            
+                            endforeach;
+                            ?>
+                            
+
 	    			</div>
 	    		
     		</div>
@@ -299,11 +492,11 @@ $q_string = Request::input('tags');;
 
 <?php endforeach; ?>
 
-<?php else: ?>
 
 <?php
     $book3 = DB::table('books')->where('tags', 'LIKE', "%".$q_string."%")->get();
 ?>
+
 
 <?php if(empty($book3)): ?>
     <h2>Helaas zijn er geen bedrijven die aan uw zoek creteria voldoen..</h2>
@@ -322,7 +515,10 @@ $q_string = Request::input('tags');;
                     <div class="col-md-9">
                         <h2><?php echo e($book2->compName); ?></h2>
                         <p><?php echo e($book2->title); ?></p>
-                        <p><span style="color: #000;">Tags:</span> <a href="#">PHP</a> , <a href="#">HTML</a> , <a href="#">CSS</a> <a href="#"><?php echo e($book2->tags); ?></a></p>
+                        <span style="color: #000;">Tags:</span> 
+
+    
+
                     </div>
                 
             </div>
@@ -401,7 +597,7 @@ $q_string = Request::input('tags');;
         <a href="#" class="close-link"><i class="arrow_up"></i></a>
     </div>
     <!-- Scripts -->
-    <script src="../js/jquery-1.11.1.min.js"></script>
+<!--    <script src="../js/jquery-1.11.1.min.js"></script> -->
     <script src="../js/owl.carousel.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/wow.min.js"></script>

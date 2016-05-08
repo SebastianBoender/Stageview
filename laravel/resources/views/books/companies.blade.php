@@ -1,13 +1,13 @@
-@if (Auth::guest())
-    
-    <script>window.location.href = "/login?error=login";</script>
-    <meta http-equiv="refresh" content="0; url=/login?error=login">
-    
-    <?php
-        header("Location: /login?error=login")
-    ?>
 
-@else
+
+<?php
+
+$q_string = Request::input('tags');
+$d_string = Request::input('distance');
+$z_string = Request::input('ozip');
+
+?>
+
 
 
 <?php
