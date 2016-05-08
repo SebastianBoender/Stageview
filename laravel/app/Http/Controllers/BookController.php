@@ -155,7 +155,16 @@ class BookController extends Controller
      $book->update($bookUpdate);
      return redirect('books');
    }
+<<<<<<< HEAD
 
+=======
+   /**
+    * Remove the specified resource from storage.
+    *
+    * @param  int  $id
+    * @return Response
+    */
+>>>>>>> 235a0d1ede6f61df99ef7e2e2bfbf0ef5cbcf9ca
    public function destroy($id)
    {
       $book=Book::find($id);

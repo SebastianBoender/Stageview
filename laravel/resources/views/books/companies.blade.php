@@ -9,6 +9,16 @@ $z_string = Request::input('ozip');
 ?>
 
 
+
+<?php
+
+$q_string = Request::input('tags');
+$d_string = Request::input('distance');
+$z_string = Request::input('ozip');
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
