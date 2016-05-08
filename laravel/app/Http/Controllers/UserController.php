@@ -22,7 +22,6 @@ class UserController extends Controller
     return view('users.index',compact('user'));
  }
 
-
  public function edit($id)
  {
     $user=Users::find($id);
@@ -41,10 +40,6 @@ class UserController extends Controller
  {
     Users::find($id)->Delete();
     return redirect('users');
-
-    //Schema::table('books', function ($table) {
-    //$table->softDeletes();
-//});
  }
 
 }

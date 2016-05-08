@@ -9,6 +9,16 @@
 
 <?php else: ?>
 
+
+<?php
+
+$q_string = Request::input('tags');
+$d_string = Request::input('distance');
+$z_string = Request::input('ozip');
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,7 +114,7 @@
                         <?php if(Auth::guest()): ?>
                             <li><a href="#" data-toggle="modal" data-target="#modal2">Log in</a></li>
                             <li><a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue">Registreer</a></li>
-                    <?php else: ?>
+                        <?php else: ?>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <?php echo e(Auth::user()->name); ?> <span class="caret"></span>
@@ -200,14 +210,24 @@ body
                 <div class="form-group">
                 <?php echo Form::label('Postcode', 'Postcode:',['class' => 'sr-only']); ?>
 
+                <?php if(!is_null($z_string)): ?>
+                <?php echo Form::text('ozip',$z_string,['class'=>'form-control', 'placeholder'=>'Postcode', 'id'=>'exampleInputEmail3']); ?>
+
+                <?php else: ?>
                 <?php echo Form::text('ozip',null,['class'=>'form-control', 'placeholder'=>'Postcode', 'id'=>'exampleInputEmail3']); ?>
 
+                <?php endif; ?>
                 </div>
                 <div class="form-group hintBoxMother" style="position: relative;">
                 <?php echo Form::label('Tags', 'Tags:',['class' => 'sr-only']); ?>
 
+                <?php if(!is_null($q_string)): ?>
+                <?php echo Form::text('tags',$q_string,['class'=>'form-control', 'placeholder'=>'Tags', 'id'=>'exampleInputPassword3', 'onkeyup'=>'showResult(this.value)', 'autocomplete'=>'off']); ?>
+
+                <?php else: ?>
                 <?php echo Form::text('tags',null,['class'=>'form-control', 'placeholder'=>'Tags', 'id'=>'exampleInputPassword3', 'onkeyup'=>'showResult(this.value)', 'autocomplete'=>'off']); ?>
 
+                <?php endif; ?>
                 <div id="livesearch" style="position: absolute; color: white; left: 0;"></div>
                 </div>
 
@@ -273,14 +293,6 @@ body
     	</div>
 
     	<div class="col-md-9">
-
-
-<?php
-
-$q_string = Request::input('tags');
-$d_string = Request::input('distance');
-
-?>
 
 
 <?php if(!is_null($d_string)): ?>
@@ -369,33 +381,36 @@ if (!empty($_GET["ozip"]) && is_numeric($_GET["ozip"]) && !empty($_GET["distance
       $dcity = $row['city'];
       $dstreet = $row['street'];
       $company = $row['compName'];
-      $company_id = $row['id'];
-      $company_image = $row['image'];
+      $deleted = $row['deleted_at'];
+      //$company_id = $row['id'];
+      //$company_image = $row['image'];
 
       $company_sql = $link->prepare("SELECT company FROM distances WHERE company = $company");
       $company_sql->execute();
 
       $company_result = $company_sql->fetchAll(\PDO::FETCH_ASSOC);
 
-      if (empty($company_result)) {
+      if (empty($deleted)) {
+        if (empty($company_result)) {
 
-        $map_url = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" .$ozip. "+netherlands&destinations=" .$dcity. "+" .$dstreet. "&mode=car&language=nl-FR&key=AIzaSyAAS35ENab_Wc8EnFyT9Sg_sl8gN-JCNkw";
+          $map_url = "https://maps.googleapis.com/maps/api/distancematrix/xml?origins=" .$ozip. "+netherlands&destinations=" .$dcity. "+" .$dstreet. "&mode=car&language=nl-FR&key=AIzaSyAAS35ENab_Wc8EnFyT9Sg_sl8gN-JCNkw";
 
-        $xmlDoc->load($map_url);
+          $xmlDoc->load($map_url);
 
-        $y=$xmlDoc->getElementsByTagName('status')->item(0);
+          $y=$xmlDoc->getElementsByTagName('status')->item(0);
 
-        $x=$xmlDoc->getElementsByTagName('distance')->item(0)->getElementsByTagName('value')->item(0);
+          $x=$xmlDoc->getElementsByTagName('distance')->item(0)->getElementsByTagName('value')->item(0);
 
-        $data=$x->textContent;
+          $data=$x->textContent;
 
-        $statement = $link->prepare("INSERT INTO distances(zipcode, distance, company) VALUES(:zipcode, :distance, :company)");
-        $statement->execute(array(
-          "zipcode" => $ozip,
-          "distance" => $data,
-          "company" => $company
-        ));
+          $statement = $link->prepare("INSERT INTO distances(zipcode, distance, company) VALUES(:zipcode, :distance, :company)");
+          $statement->execute(array(
+            "zipcode" => $ozip,
+            "distance" => $data,
+            "company" => $company
+          ));
 
+        }
       }
 
       if ($data <= $radius){
@@ -408,11 +423,11 @@ if (!empty($_GET["ozip"]) && is_numeric($_GET["ozip"]) && !empty($_GET["distance
 
        
 
-        echo '<a <a href="'.$company_id.'">
+        echo '<a <a href="">
             <div class="company">
                 
                     <div class="col-md-3">
-                        <img src="'.$company_image.'" class="img-responsive" />
+                        <img src="placeholderCompany.jpg" class="img-responsive" />
                     </div>
 
                     <div class="col-md-9">

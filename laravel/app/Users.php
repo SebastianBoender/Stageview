@@ -19,6 +19,10 @@ class Users extends Model
         'role'
     ];
 
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
+
 }
 
 

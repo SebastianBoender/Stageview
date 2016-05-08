@@ -16,14 +16,16 @@ class Book extends Model
         'author',
         'publisher',
         'image',
+        'created_at',
+        'updated_at',
         'review',
         'location',
         'tags'
     ];
 
-    //use SoftDeletes;
+    use SoftDeletes;
 
-    //protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at'];
 }
 
 

@@ -13,6 +13,49 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Validator;
 use Redirect;
 use Session;
+use Auth;
+
+
+     function teacherAuth(){
+      if (Auth::guest()) {
+        echo '<script>window.location.href = "/login?error=login";</script>';
+      }
+      elseif (Auth::user()->role == 'student') {
+        echo '<script>window.location.href = "/login?error=login";</script>';
+      }
+      elseif (Auth::user()->role == 'NULL') {
+        echo '<script>window.location.href = "/login?error=login";</script>';
+      }
+    }
+
+     function adminAuth(){
+
+     
+
+      if (Auth::user()->role != 'admin') {
+         echo '<script>window.location.href = "/login?error=login";</script>';
+      }
+
+
+    }
+
+     function isStudent(){
+
+
+      if (Auth::user()->role == 'inactive') {
+         echo '<script>window.location.href = "/login?error=login";</script>';
+      }
+
+    }
+
+
+     function isLoggedIn(){
+
+
+      if (Auth::guest()) {
+        echo '<script>window.location.href = "/login?error=login";</script>';
+      }
+    }
 
 
 class BookController extends Controller
@@ -23,35 +66,28 @@ class BookController extends Controller
     *
     * @return Response
     */
-   
+
+
 
    public function index()
    {
+      adminAuth();
       $books=Book::all();
       return view('books.companies',compact('books'));
    }
 
       public function companies()
    {
+      adminAuth();
       $books=Book::all();
       return view('books.index',compact('books'));
    }
 
-
-   /**
-    * Show the form for creating a new resource.
-    *
-    * @return Response
-    */
    public function create()
    {
       return view('books.create');
    }
-   /**
-    * Store a newly created resource in storage.
-    *
-    * @return Response
-    */
+
    public function store()
    {
       $book=Request::all();
@@ -98,35 +134,20 @@ class BookController extends Controller
 
       return redirect('books');
    }
-   /**
-    * Display the specified resource.
-    *
-    * @param  int  $id
-    * @return Response
-    */
+
    public function show($id)
    {
       $book=Book::find($id);
       return view('books.show',compact('book'));
    }
 
-   /**
-    * Show the form for editing the specified resource.
-    *
-    * @param  int  $id
-    * @return Response
-    */
+ 
    public function edit($id)
    {
       $book=Book::find($id);
       return view('books.edit',compact('book'));
    }
-   /**
-    * Update the specified resource in storage.
-    *
-    * @param  int  $id
-    * @return Response
-    */
+
    public function update($id)
    {
      $bookUpdate=Request::all();
@@ -134,28 +155,11 @@ class BookController extends Controller
      $book->update($bookUpdate);
      return redirect('books');
    }
-   /**
-    * Remove the specified resource from storage.
-    *
-    * @param  int  $id
-    * @return Response
-    */
+
    public function destroy($id)
    {
-      Book::find($id)->Delete();
-      return redirect('books');
-
-      //Schema::table('books', function ($table) {
-      //$table->softDeletes();
-//});
-   }
-   public function activate_deactivate($id)
-   {
-      Users::find($id)->Delete();
-      return redirect('users');
-
-      //Schema::table('books', function ($table) {
-      //$table->softDeletes();
-//});
+      $book=Book::find($id);
+      $book->delete();
+      return redirect('books/admin');
    }
 }

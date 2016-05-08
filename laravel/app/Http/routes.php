@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,29 +28,31 @@ Route::get('/', function () {
 //Route::get('home', 'HomeController@index');
 
 
-Route::get('books/admin' , 'BookController@companies');
 
 
 
-Route::group(['middleware' => ['web']], function () {
-    //
-});
 
 
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
+
+    Route::get('books/admin' , 'BookController@companies');
     Route::get('/home', 'HomeController@index');
     Route::resource('books','BookController');
     Route::resource('users','UserController');
-});
+    Route::resource('trashed-books','TrashedBookController');
+    Route::post('/trashed-books/restore/{id}','TrashedBookController@restore');
+
 
 Route::get('upload', function() {
   return View::make('books.create');
 });
 
-
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('livesearch.php', function(){
 	return View::make('books.livesearch');
@@ -68,3 +68,4 @@ Route::get('maps', function(){
 });
 
 Route::post('apply/upload', 'BookController@store');
+});

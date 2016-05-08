@@ -26,7 +26,7 @@
              @else
                 <td>Yes</td>
              @endif
-             <td><a href="{{route('users.edit',$users->id)}}" class="btn btn-warning">Update</a></td>
+             <td><a href="{{route('users.edit',$users->id)}}" class="btn btn-warning">Edit</a></td>
              <td>
              {!! Form::open(['method' => 'DELETE', 'route'=>['users.destroy', $users->id]]) !!}
              {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
