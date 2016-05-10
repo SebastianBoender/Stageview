@@ -5,7 +5,7 @@
 @section('content')
  <h1>Stageview admin</h1>
  <a href="{{url('/groups/create')}}" class="btn btn-success">Creëer groep</a>
- <a href="/trashed-books" class="btn btn-warning">See Deleted</a>
+ <a href="/trashed-groups" class="btn btn-warning">See Deleted</a>
  <hr>
  <table class="table table-striped table-bordered table-hover">
      <thead>
