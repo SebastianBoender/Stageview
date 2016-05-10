@@ -245,7 +245,7 @@ body
 
           <br>
 
-          <?php echo Form::submit('Zoeken', ['class' => 'btn btn-primary', 'style' => 'margin-top: 60px']); ?>
+          <?php echo Form::submit('Zoeken', ['class' => 'btn btn-primary', 'style' => 'margin-top: 80px']); ?>
 
           <?php echo Form::close(); ?>
 
