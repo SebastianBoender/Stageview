@@ -22,7 +22,7 @@
              <td>{{ $group->id }}</td>
              <td>{{ $group->name }}</td>
              <td>{{ $group->created_at }}</td>
-             <td><a href="{{route('groups.edit', $groups->id)}}" class="btn btn-warning">Edit</a></td>
+             <td><a href="{{route('groups.edit', $group->id)}}" class="btn btn-warning">Edit</a></td>
              <td>
              {!! Form::open(['method' => 'DELETE', 'route'=>['groups.destroy', $group->id]]) !!}
              {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}

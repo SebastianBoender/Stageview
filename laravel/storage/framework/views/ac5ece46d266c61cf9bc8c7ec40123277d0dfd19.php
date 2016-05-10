@@ -18,7 +18,7 @@
              <td><?php echo e($group->id); ?></td>
              <td><?php echo e($group->name); ?></td>
              <td><?php echo e($group->created_at); ?></td>
-             <td><a href="<?php echo e(route('groups.edit', $groups->id)); ?>" class="btn btn-warning">Edit</a></td>
+             <td><a href="<?php echo e(route('groups.edit', $group->id)); ?>" class="btn btn-warning">Edit</a></td>
              <td>
              <?php echo Form::open(['method' => 'DELETE', 'route'=>['groups.destroy', $group->id]]); ?>
 
