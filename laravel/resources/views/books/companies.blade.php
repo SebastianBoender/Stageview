@@ -612,5 +612,3 @@ $tags = explode(',', $tags_dtb);
 </html>
 
 
-
-@endif

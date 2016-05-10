@@ -621,5 +621,3 @@ $tags = explode(',', $tags_dtb);
 </html>
 
 
-
-<?php endif; ?>

@@ -44,6 +44,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('users','UserController');
     Route::resource('groups','GroupController');
     Route::resource('trashed-books','TrashedBookController');
+    Route::resource('groups/edit/{id}','GroupController@edit');
     Route::post('/trashed-books/restore/{id}','TrashedBookController@restore');
 
 

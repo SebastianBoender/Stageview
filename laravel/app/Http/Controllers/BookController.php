@@ -103,10 +103,6 @@ class BookController extends Controller
      return redirect('books');
    }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 9ab97cffff85416fc32575f2d63418ae12478d09
    public function destroy($id)
    {
       $book=Book::find($id);
