@@ -29,10 +29,7 @@ use Auth;
     }
 
      function adminAuth(){
-
-     
-
-      if (Auth::user()->role != 'admin') {
+      if (Auth::user()->role !== 'admin') {
          echo '<script>window.location.href = "/login?error=login";</script>';
       }
 
@@ -40,9 +37,7 @@ use Auth;
     }
 
      function isStudent(){
-
-
-      if (Auth::user()->role == 'inactive') {
+      if (Auth::user()->role != 'inactive') {
          echo '<script>window.location.href = "/login?error=login";</script>';
       }
 
@@ -50,8 +45,6 @@ use Auth;
 
 
      function isLoggedIn(){
-
-
       if (Auth::guest()) {
         echo '<script>window.location.href = "/login?error=login";</script>';
       }
@@ -61,24 +54,18 @@ use Auth;
 class BookController extends Controller
 {
 
-    /**
-    * Display a listing of the resource.
-    *
-    * @return Response
-    */
-
 
 
    public function index()
    {
-      adminAuth();
+      teacherAuth();
       $books=Book::all();
       return view('books.companies',compact('books'));
    }
 
       public function companies()
    {
-      adminAuth();
+      teacherAuth();
       $books=Book::all();
       return view('books.index',compact('books'));
    }
@@ -92,46 +79,6 @@ class BookController extends Controller
    {
       $book=Request::all();
       Book::create($book);
-/*
-      // getting all of the post data
-
-      $file = array('image' => Input::file('image'));
-
-      // setting up rules
-
-      $rules = array('image' => 'required',); //jpeg,bmp,png and size max:10000
-
-      // doing the validation, passing post data, rules and the messages
-
-      $validator = Validator::make($file, $rules);
-
-      if ($validator->fails()) {
-
-        // send back to the page with the input data and errors
-        // return Redirect::to('upload')->withInput()->withErrors($validator);
-
-        return $validator;
-      }
-      else {
-        // checking file is valid.
-        if (Input::file('image')->isValid()) {
-          $destinationPath = '../public/img'; // upload path
-          $extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
-          $fileName = rand(11111,99999).'.'.$extension; // renameing image
-          Input::file('image')->move($destinationPath, $fileName); // uploading file to given path
-          // sending back with message
-          Session::flash('success', 'Upload successfully'); 
-
-          return Redirect::to('upload');
-        }
-        else {
-          // sending back with error message.
-          Session::flash('error', 'uploaded file is not valid');
-          return Redirect::to('upload');
-        }
-      } */
-
-
       return redirect('books');
    }
 
@@ -155,16 +102,7 @@ class BookController extends Controller
      $book->update($bookUpdate);
      return redirect('books');
    }
-<<<<<<< HEAD
 
-=======
-   /**
-    * Remove the specified resource from storage.
-    *
-    * @param  int  $id
-    * @return Response
-    */
->>>>>>> 235a0d1ede6f61df99ef7e2e2bfbf0ef5cbcf9ca
    public function destroy($id)
    {
       $book=Book::find($id);

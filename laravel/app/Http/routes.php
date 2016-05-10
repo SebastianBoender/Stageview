@@ -42,6 +42,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/home', 'HomeController@index');
     Route::resource('books','BookController');
     Route::resource('users','UserController');
+    Route::resource('groups','GroupController');
     Route::resource('trashed-books','TrashedBookController');
     Route::post('/trashed-books/restore/{id}','TrashedBookController@restore');
 
