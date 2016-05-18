@@ -23,6 +23,11 @@ class Users extends Model
 
     protected $dates = ['deleted_at'];
 
+        public function company()
+    {
+        return $this->belongsTo('App\Book', 'company_id', 'id');
+    }
+
 }
 
 

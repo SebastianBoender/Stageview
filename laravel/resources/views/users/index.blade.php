@@ -10,6 +10,7 @@
          <th>Email</th>
          <th>Registration Date</th>
          <th>Role</th>
+         <th>Bedrijf</th>
          <th>Active</th>
          <th colspan="6">Actions</th>
      </tr>
@@ -21,6 +22,12 @@
              <td>{{ $users->email }}</td>
              <td>{{ $users->created_at }}</td>
              <td>{{ $users->role }}</td>
+             @if ($users->company)
+             <td>{{ $users->company->compName }}</td>
+             @else
+             <td>Geen bedrijf</td>
+             @endif
+
              @if($users->active == 0)
                 <td>No</td>
              @else
