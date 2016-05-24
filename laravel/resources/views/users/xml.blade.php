@@ -11,7 +11,77 @@ try {
   print $e->getMessage();
 }
 
+  $regex = '~\A[1-9]\d{3} ?[a-zA-Z]{2}\z~';
+  $radius = $_GET["radius"];
 
+
+  $ozip = !empty($_GET['ozip']) ? htmlentities($_GET['ozip']) : '1234 AB';
+  $valid = preg_match($regex, $ozip, $matches);
+
+  if ($valid) {
+
+      $city_req_sql = $link->prepare("SELECT * FROM books WHERE id = 4");
+      $zipcode_req_sql = $link->prepare("SELECT * FROM zipcodes WHERE zipcode = $ozip");
+
+      $city_req_sql->execute();
+      $zipcode_req_sql->execute();
+
+      $old_records_sql = $city_req_sql->fetchAll(\PDO::FETCH_ASSOC);
+      $old_zip_records_sql = $zipcode_req_sql->fetchAll(\PDO::FETCH_ASSOC);
+
+      if (empty($old_zip_records_sql)) {
+
+      $xmlDoc=new DOMDocument();
+
+            $map_url = "https://maps.googleapis.com/maps/api/geocode/xml?address=".$ozip."&key=AIzaSyAAS35ENab_Wc8EnFyT9Sg_sl8gN-JCNkw";
+
+            $xmlDoc->load($map_url);
+
+            $y=$xmlDoc->getElementsByTagName('location')->item(0)->getElementsByTagName('lat')->item(0);
+
+            $x=$xmlDoc->getElementsByTagName('location')->item(0)->getElementsByTagName('lng')->item(0);
+
+            $lat_new=$y->textContent;
+            $long_new=$x->textContent;
+
+            $insertion = $link->prepare("INSERT INTO zipcodes(zipcode, lat, long) VALUES(:zipcode, :lat, :long)");
+            $insertion->execute(array(
+              ':zipcode' => $ozip,
+              ':lat' => $lat_new,
+              ':long' => $long_new
+            ));
+
+            $statement = $link->prepare("INSERT INTO zipcodes(zipcode, lat, long) VALUES(:zipcode, :lat, :long)");
+            $statement->execute(array(
+                "zipcode" => "Bob",
+                "lat" => "Desaunois",
+                "long" => "18"
+            ));
+
+      foreach ($old_records_sql as $old):
+
+            
+            $lat_old = $old['lat'];
+            $long_old = $old['long'];
+
+            //arccosine formule om de afstand tussen de 2 co-ordinaten te berekenen
+            $distance =( 6371 * acos((cos(deg2rad($lat_old)) ) * (cos(deg2rad($lat_new))) * (cos(deg2rad($long_new) - deg2rad($long_old)) )+ ((sin(deg2rad($lat_old))) * (sin(deg2rad($lat_new))))) );;
+            $distance_meter = $distance*1000;
+            print($distance_meter);
+
+            if ($distance_meter <= $radius) {
+                echo '<br/>';
+                echo $old['compName'];
+            }
+
+      endforeach;
+    }
+
+  } else {
+    echo 'Zipcode invalid';
+  }
+
+/*
 if (!empty($_GET["ozip"]) && is_numeric($_GET["ozip"]) && !empty($_GET["radius"]) && is_numeric($_GET["radius"])) {
 
   $ozip = $_GET["ozip"];
@@ -113,5 +183,5 @@ if (!empty($_GET["ozip"]) && is_numeric($_GET["ozip"]) && !empty($_GET["radius"]
   echo 'Error parsing XML';
 
 }
-
+*/
 ?>

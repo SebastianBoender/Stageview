@@ -4,7 +4,7 @@
 
 @section('content')
  <h1>Stageview admin</h1>
- <a href="/groups" class="btn btn-warning">Go back</a>
+ <a href="/groups" class="btn btn-success">Go back</a>
  <hr>
  <table class="table table-striped table-bordered table-hover">
      <thead>
