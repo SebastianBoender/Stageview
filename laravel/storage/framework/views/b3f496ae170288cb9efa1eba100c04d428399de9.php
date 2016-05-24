@@ -31,6 +31,16 @@
 
     </div>
 
+
+    <div class="form-group">
+        <select id="company" name="company">
+        <?php foreach($companies as $company): ?>
+            <option value='<?php echo e($company->id); ?>'><?php echo e($company->compName); ?></option>
+        <?php endforeach; ?>
+        </select>
+    </div>
+
+
     <div class="form-group">
         <?php echo Form::submit('Update', ['class' => 'btn btn-primary']); ?>
 

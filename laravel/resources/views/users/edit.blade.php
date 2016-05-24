@@ -23,6 +23,16 @@
         {!! Form::select('active', array('1' => 'Active', '0' => 'Inactive')); !!}
     </div>
 
+
+    <div class="form-group">
+        <select id="company" name="company">
+        @foreach ($companies as $company)
+            <option value='{{ $company->id }}'>{{ $company->compName }}</option>
+        @endforeach
+        </select>
+    </div>
+
+
     <div class="form-group">
         {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
     </div>

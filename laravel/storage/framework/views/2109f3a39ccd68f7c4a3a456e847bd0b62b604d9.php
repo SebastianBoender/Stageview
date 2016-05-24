@@ -8,6 +8,7 @@
          <th>Email</th>
          <th>Registration Date</th>
          <th>Role</th>
+         <th>Bedrijf</th>
          <th>Active</th>
          <th colspan="6">Actions</th>
      </tr>
@@ -19,6 +20,12 @@
              <td><?php echo e($users->email); ?></td>
              <td><?php echo e($users->created_at); ?></td>
              <td><?php echo e($users->role); ?></td>
+             <?php if($users->company): ?>
+             <td><?php echo e($users->company->compName); ?></td>
+             <?php else: ?>
+             <td>Geen bedrijf</td>
+             <?php endif; ?>
+
              <?php if($users->active == 0): ?>
                 <td>No</td>
              <?php else: ?>
