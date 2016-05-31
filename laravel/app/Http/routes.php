@@ -15,13 +15,13 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/trashed-groups/restore/{id}','TrashedGroupController@restore');
 
 
-Route::get('upload', function() {
+Route::get('upload', ['middleware' => 'auth', function() {
   return View::make('books.create');
-});
+}]);
 
-Route::get('/', function () {
+Route::get('/', ['middleware' => 'auth', function () {
     return view('welcome');
-});
+}]);
 
 Route::get('livesearch.php', function(){
 	return View::make('books.livesearch');
@@ -36,5 +36,5 @@ Route::get('maps', function(){
 	return View::make('users.maps');
 });
 
-Route::post('apply/upload', 'BookController@store');
+Route::post('apply/upload', ['middleware' => 'auth', 'uses' => 'BookController@store']);
 });
