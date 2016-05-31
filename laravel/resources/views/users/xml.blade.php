@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 try {
   $dbhost = "127.0.0.1";
@@ -9,17 +9,15 @@ try {
   $link = new PDO("mysql:host=$dbhost;dbname=$dbname",$dbusername,$dbpassword);
 } catch (PDOException $e) {
   print $e->getMessage();
-}
+}  
 
   $regex = '~\A[1-9]\d{3} ?[a-zA-Z]{2}\z~';
   $radius = $_GET["radius"];
-
 
   $ozip = !empty($_GET['ozip']) ? htmlentities($_GET['ozip']) : '1234 AB';
   $valid = preg_match($regex, $ozip, $matches);
 
   if ($valid) {
-
       $city_req_sql = $link->prepare("SELECT * FROM books WHERE id = 4");
       $zipcode_req_sql = $link->prepare("SELECT * FROM zipcodes WHERE zipcode = $ozip");
 
@@ -51,27 +49,19 @@ try {
               ':long' => $long_new
             ));
 
-            $statement = $link->prepare("INSERT INTO zipcodes(zipcode, lat, long) VALUES(:zipcode, :lat, :long)");
-            $statement->execute(array(
-                "zipcode" => "Bob",
-                "lat" => "Desaunois",
-                "long" => "18"
-            ));
-
       foreach ($old_records_sql as $old):
-
-            
+           
             $lat_old = $old['lat'];
             $long_old = $old['long'];
 
             //arccosine formule om de afstand tussen de 2 co-ordinaten te berekenen
             $distance =( 6371 * acos((cos(deg2rad($lat_old)) ) * (cos(deg2rad($lat_new))) * (cos(deg2rad($long_new) - deg2rad($long_old)) )+ ((sin(deg2rad($lat_old))) * (sin(deg2rad($lat_new))))) );;
             $distance_meter = $distance*1000;
-            print($distance_meter);
 
             if ($distance_meter <= $radius) {
-                echo '<br/>';
                 echo $old['compName'];
+                echo '<br/>';
+                echo $distance;
             }
 
       endforeach;

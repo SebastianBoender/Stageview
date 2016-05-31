@@ -18,19 +18,19 @@ use Auth;
 
      function teacherAuth(){
       if (Auth::guest()) {
-        echo '<script>window.location.href = "/login?error=login";</script>';
+        return redirect('/login?error=login');
       }
       elseif (Auth::user()->role == 'student') {
-        echo '<script>window.location.href = "/login?error=login";</script>';
+        return redirect('/login?error=login');
       }
       elseif (Auth::user()->role == 'NULL') {
-        echo '<script>window.location.href = "/login?error=login";</script>';
+        return redirect('/login?error=login');
       }
     }
 
      function adminAuth(){
       if (Auth::user()->role !== 'admin') {
-         echo '<script>window.location.href = "/login?error=login";</script>';
+         return redirect('/login?error=login');
       }
 
 
@@ -38,7 +38,7 @@ use Auth;
 
      function isStudent(){
       if (Auth::user()->role != 'inactive') {
-         echo '<script>window.location.href = "/login?error=login";</script>';
+          return redirect('/login?error=login');
       }
 
     }
@@ -46,7 +46,7 @@ use Auth;
 
      function isLoggedIn(){
       if (Auth::guest()) {
-        echo '<script>window.location.href = "/login?error=login";</script>';
+        return redirect('/login?error=login');
       }
     }
 
@@ -58,7 +58,7 @@ class BookController extends Controller
 
    public function index()
    {
-      teacherAuth();
+      //return teacherAuth();
       $books=Book::all();
       return view('books.companies',compact('books'));
    }
