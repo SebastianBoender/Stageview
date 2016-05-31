@@ -30,6 +30,11 @@
     <link rel="stylesheet" type="text/css" href="../css/cardio.css">
     <link rel="stylesheet" type="text/css" href="http://localhost/Stageview/css/styles.css">
     <link rel="stylesheet" type="text/css" href="../css/fix.css">
+
+    <noscript>
+    <div style="position:absolute; background-color: #ff0000; z-index: 100; color: #fff; padding: 1em;">You disabled Javascript. Please enable Javascript in order to use our website properly.</div>
+    </noscript>
+
 </head>
 
 <body>

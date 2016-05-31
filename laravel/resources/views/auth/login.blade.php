@@ -29,6 +29,11 @@
     <link rel="stylesheet" type="text/css" href="../css/fix.css">
 
 
+    <noscript>
+        <div style="position:absolute; background-color: #ff0000; z-index: 100; color: #fff; padding: 1em;">You disabled Javascript. Please enable Javascript in order to use our website properly.</div>
+    </noscript>
+
+
 <body>
     <div class="preloader">
         <img src="../img/loader.gif" alt="Preloader image">
@@ -90,7 +95,7 @@
                                 <center><strong style="color:red;">{{ Session::get('fail') }}</strong></center>
                             </span>
                             <br />
-                            
+
                         @endif
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
