@@ -84,15 +84,13 @@
 <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {!! csrf_field() !!}
 
-                        <?php
-                            $error_string = Request::input('error');
-                        ?>
-
-                        @if(!is_null($error_string))    
-                        <span class="help-block">
-                            <center><strong style="color:red;">Please login to view this page!</strong></center>
-                        </span>
-                        <br />
+                       @if(Session::has('fail'))
+  
+                            <span class="help-block">
+                                <center><strong style="color:red;">{{ Session::get('fail') }}</strong></center>
+                            </span>
+                            <br />
+                            
                         @endif
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">

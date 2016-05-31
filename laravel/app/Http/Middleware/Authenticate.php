@@ -21,7 +21,7 @@ class Authenticate
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest('login');
+                return redirect()->guest('login')->withInput()->with('fail', 'Please login in order to view this page!');
             }
         }
 

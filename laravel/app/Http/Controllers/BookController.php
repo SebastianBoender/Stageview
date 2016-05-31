@@ -16,40 +16,7 @@ use Session;
 use Auth;
 
 
-     function teacherAuth(){
-      if (Auth::guest()) {
-        return redirect('/login?error=login');
-      }
-      elseif (Auth::user()->role == 'student') {
-        return redirect('/login?error=login');
-      }
-      elseif (Auth::user()->role == 'NULL') {
-        return redirect('/login?error=login');
-      }
-    }
-
-     function adminAuth(){
-      if (Auth::user()->role !== 'admin') {
-         return redirect('/login?error=login');
-      }
-
-
-    }
-
-     function isStudent(){
-      if (Auth::user()->role != 'inactive') {
-          return redirect('/login?error=login');
-      }
-
-    }
-
-
-     function isLoggedIn(){
-      if (Auth::guest()) {
-        return redirect('/login?error=login');
-      }
-    }
-
+     
 
 class BookController extends Controller
 {
