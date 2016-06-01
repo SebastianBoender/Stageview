@@ -56,7 +56,7 @@
                     <li><a href="/Stageview/companies.php">Bedrijven</a></li>
                     <li><a href="#services">Contact</a></li>
                     <li><a href="#pricing">FAQ</a></li>
-                        @if (Auth::guest())
+                    @if (Auth::guest())
                             <li><a href="#" data-toggle="modal" data-target="#modal2">Log in</a></li>
                             <li><a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue">Registreer</a></li>
                     @else
@@ -251,6 +251,7 @@ label::before
     padding: 15px;
     }</style>
 </html>
+
 
 
 

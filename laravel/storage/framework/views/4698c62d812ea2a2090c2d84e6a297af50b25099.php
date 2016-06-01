@@ -29,6 +29,11 @@
     <link rel="stylesheet" type="text/css" href="../css/fix.css">
 
 
+    <noscript>
+        <div style="position:absolute; background-color: #ff0000; z-index: 100; color: #fff; padding: 1em;">You disabled Javascript. Please enable Javascript in order to use our website properly.</div>
+    </noscript>
+
+
 <body>
     <div class="preloader">
         <img src="../img/loader.gif" alt="Preloader image">
@@ -51,7 +56,7 @@
                     <li><a href="/Stageview/companies.php">Bedrijven</a></li>
                     <li><a href="#services">Contact</a></li>
                     <li><a href="#pricing">FAQ</a></li>
-                        <?php if(Auth::guest()): ?>
+                    <?php if(Auth::guest()): ?>
                             <li><a href="#" data-toggle="modal" data-target="#modal2">Log in</a></li>
                             <li><a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue">Registreer</a></li>
                     <?php else: ?>
@@ -91,7 +96,7 @@
                                 <center><strong style="color:red;"><?php echo e(Session::get('fail')); ?></strong></center>
                             </span>
                             <br />
-                            
+
                         <?php endif; ?>
 
                         <div class="form-group<?php echo e($errors->has('email') ? ' has-error' : ''); ?>">
