@@ -49,6 +49,7 @@ Temporary Items
 # Official Laravel excludes
 laravel/vendor/
 laravel/storage/
+laravel/storage/logs/laravel.log
 laravel/node_modules/
 laravel/public/storage
 laravel/Homestead.yaml
