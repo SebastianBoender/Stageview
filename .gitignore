@@ -46,5 +46,11 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-laravel/storage/logs/laravel.log
-laravel/storage/logs/laravel.log
+# Official Laravel excludes
+laravel/vendor/
+laravel/storage/
+laravel/node_modules/
+laravel/public/storage
+laravel/Homestead.yaml
+laravel/Homestead.json
+laravel/.env
