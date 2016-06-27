@@ -1,24 +1,3 @@
-
-
-<?php
-
-$q_string = Request::input('tags');
-$d_string = Request::input('distance');
-$z_string = Request::input('ozip');
-
-?>
-
-
-
-<?php
-
-$q_string = Request::input('tags');
-$d_string = Request::input('distance');
-$z_string = Request::input('ozip');
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +6,6 @@ $z_string = Request::input('ozip');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Stageview | Jij zoekt een stage, wij informeren</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <!-- Favicons (created with http://realfavicongenerator.net/)-->
     <link rel="apple-touch-icon" sizes="57x57" href="../img/favicons/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="../img/favicons/apple-touch-icon-60x60.png">
@@ -48,6 +26,9 @@ $z_string = Request::input('ozip');
     <link rel="stylesheet" type="text/css" href="http://localhost/Stageview/css/styles.css">
     <link rel="stylesheet" type="text/css" href="../css/fix.css">
 
+    <noscript>
+    <div style="position:absolute; background-color: #ff0000; z-index: 100; color: #fff; padding: 1em;">You disabled Javascript. Please enable Javascript in order to use our website properly.</div>
+    </noscript>
 
 </head>
 
@@ -55,7 +36,7 @@ $z_string = Request::input('ozip');
     <div class="preloader">
         <img src="../img/loader.gif" alt="Preloader image">
     </div>
-    <nav class="navbar">
+  <nav class="navbar">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -73,21 +54,8 @@ $z_string = Request::input('ozip');
                     <li><a href="/Stageview/companies.php">Bedrijven</a></li>
                     <li><a href="#services">Contact</a></li>
                     <li><a href="#pricing">FAQ</a></li>
-                        <?php if(Auth::guest()): ?>
-                            <li><a href="#" data-toggle="modal" data-target="#modal2">Log in</a></li>
-                            <li><a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue">Registreer</a></li>
-                        <?php else: ?>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                <?php echo e(Auth::user()->name); ?> <span class="caret"></span>
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a><?php echo e(Auth::user()->role); ?></a></li>
-                                <li><a href="<?php echo e(url('/logout')); ?>"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                            </ul>
-                        </li>
-                    <?php endif; ?>
+                    <li><a href="#" data-toggle="modal" data-target="#modal2">Log in</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue">Registreer</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -95,92 +63,38 @@ $z_string = Request::input('ozip');
         <!-- /.container-fluid -->
     </nav>
 
-    <style type="text/css">
-.form-group {
-    margin-left: 25px;
-    margin-right: 70px;
-}
+    <div style="margin-top: 100px;" class="container">
 
-body
-{
-    background-color: #fff;
-}
+        <div class="container">
 
-.company
-{
-    margin-top: 15px;
-    display: inline-block;
-}
-
-
-.effect7
-{
-    position:relative;       
-    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-}
-.effect7:before, .effect7:after
-{
-    content:"";
-    position:absolute; 
-    z-index:-1;
-    -webkit-box-shadow:0 0 20px rgba(0,0,0,0.8);
-    -moz-box-shadow:0 0 20px rgba(0,0,0,0.8);
-    box-shadow:0 0 20px rgba(0,0,0,0.8);
-    top:0;
-    bottom:0;
-    left:10px;
-    right:10px;
-    -moz-border-radius:100px / 10px;
-    border-radius:100px / 10px;
-} 
-.effect7:after
-{
-    right:10px; 
-    left:auto;
-    -webkit-transform:skew(8deg) rotate(3deg); 
-       -moz-transform:skew(8deg) rotate(3deg);     
-        -ms-transform:skew(8deg) rotate(3deg);     
-         -o-transform:skew(8deg) rotate(3deg); 
-            transform:skew(8deg) rotate(3deg);
-}
-
-.borderBottom
-{
-    border-bottom: 1px solid gray;
-}
-
-
-#livesearch a:hover{
-    background-color: #CCCCCC!important;
-    color: #000 !important;
-}
-
-    </style>
-
-
-    <header id="first">
-        <div class="header-content">
-            <div class="inner">
-                <h1 class="white typed">Zoek door onze database met bedrijven.</h1>
-                <span class="typed-cursor">|</span>
-                 <hr>
-                
-
-
-          <a href="/books" class="btn btn-primary">Get started!</a>
-
-
-          </div>
+        <div class="col-md-12">
+            <div class="col-md-3"> <img src="{{asset('img/'.$company->image.'')}}" class="img-responsive"></div>
+            <div class="col-md-9"><h1 style="font-weight: 100; margin-top: 10%;">{{$company->compName}}</h1></div>
         </div>
-        <video autoplay="" loop="" class="fillWidth fadeIn wow collapse in" data-wow-delay="0.5s" poster="https://s3-us-west-2.amazonaws.com/coverr/poster/Traffic-blurred2.jpg" id="video-background">
-            <source src="https://s3-us-west-2.amazonaws.com/coverr/mp4/Traffic-blurred2.mp4" type="video/mp4">Your browser does not support the video tag. I suggest you upgrade your browser.
-        </video>
-    </header>
+
+        <div class="col-md-12">
+        <div class="col-md-9 pull-right">
+            <h2>Over het bedrijf</h2>
+            <p>{{$company->title}}</p>
+
+            <h2>Review</h2>
+            <p>
+                {{$company->review}}
+            </p>
+
+            <h2>Contact</h2>
+            <p>Contactpersoon: {{$company->author}}</p>
+            <p>Email: {{$company->publisher}}</p>
 
 
+        </div>
+        </div>
 
+        </div>
+
+
+    </div>
+    
 
     <footer>
         <div class="container">
@@ -210,7 +124,7 @@ body
                 </div>
                 <div class="col-sm-4 text-right text-center-mobile">
                     <ul class="social-footer">
-                        <li><a href="http://www.facebook.com/pages/Codrops/159107397912"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="http://www.facecompany.com/pages/Codrops/159107397912"><i class="fa fa-facecompany"></i></a></li>
                         <li><a href="http://www.twitter.com/codrops"><i class="fa fa-twitter"></i></a></li>
                         <li><a href="https://plus.google.com/101095823814290637419"><i class="fa fa-google-plus"></i></a></li>
                     </ul>
@@ -225,7 +139,7 @@ body
         <a href="#" class="close-link"><i class="arrow_up"></i></a>
     </div>
     <!-- Scripts -->
-<!--    <script src="../js/jquery-1.11.1.min.js"></script> -->
+    <script src="../js/jquery-1.11.1.min.js"></script>
     <script src="../js/owl.carousel.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../js/wow.min.js"></script>
@@ -235,7 +149,12 @@ body
 </body>
 
 
-<style type="text/css">body{background-color: #fff;}</style>
+<style type="text/css">body{background-color: #fff;}
+
+.original{
+
+    background-color: #2C2B44;
+    margin-top: -50px;
+    padding: 15px;
+    }</style>
 </html>
-
-
