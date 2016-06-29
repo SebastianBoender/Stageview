@@ -4,14 +4,14 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
 
-    Route::get('companies/admin' , 'CompanyController@companies');
+    Route::get('books/admin' , 'BookController@companies');
     Route::get('/home', 'HomeController@index');
-    Route::resource('companies','CompanyController');
+    Route::resource('books','BookController');
     Route::resource('users','UserController');
     Route::resource('groups','GroupController');
-    Route::resource('trashed-companies','TrashedCompanyController');
+    Route::resource('trashed-books','TrashedBookController');
     Route::resource('trashed-groups','TrashedGroupController');
-    Route::post('/trashed-companies/restore/{id}','TrashedCompanyController@restore');
+    Route::post('/trashed-books/restore/{id}','TrashedBookController@restore');
     Route::post('/trashed-groups/restore/{id}','TrashedGroupController@restore');
 
 
@@ -36,5 +36,5 @@ Route::get('maps', function(){
 	return View::make('users.maps');
 });
 
-Route::post('apply/upload', ['middleware' => 'auth', 'uses' => 'CompanyController@store']);
+Route::post('apply/upload', ['middleware' => 'auth', 'uses' => 'BookController@store']);
 });
